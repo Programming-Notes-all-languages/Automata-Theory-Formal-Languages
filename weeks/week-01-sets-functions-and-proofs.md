@@ -52,7 +52,7 @@ A set is **finite** if it contains finitely many elements; otherwise it is **inf
 
 **Example.** For $S = \{a, b, c\}$:
 
-$$\mathcal{P}(S) = \bigl\{\varnothing,\ \{a\},\ \{b\},\ \{c\},\ \{a,b\},\ \{a,c\},\ \{b,c\},\ \{a,b,c\}\bigr\}$$
+$$\mathcal{P}(S) = \left\{\varnothing,\ \{a\},\ \{b\},\ \{c\},\ \{a,b\},\ \{a,c\},\ \{b,c\},\ \{a,b,c\}\right\}$$
 
 so $|S| = 3$ and $|\mathcal{P}(S)| = 8 = 2^3$.
 
@@ -196,7 +196,7 @@ Write all subsets of $S = \{1, 2, 3\}$.
 
 **Solution.** There are $2^{|S|} = 2^3 = 8$ subsets:
 
-$$\mathcal{P}(S) = \bigl\{\varnothing,\ \{1\},\ \{2\},\ \{3\},\ \{1,2\},\ \{1,3\},\ \{2,3\},\ \{1,2,3\}\bigr\}.$$
+$$\mathcal{P}(S) = \left\{\varnothing,\ \{1\},\ \{2\},\ \{3\},\ \{1,2\},\ \{1,3\},\ \{2,3\},\ \{1,2,3\}\right\}.$$
 
 ### Problem 6 — Big-O: $4n^2 + 2 = O(n^2)$
 
