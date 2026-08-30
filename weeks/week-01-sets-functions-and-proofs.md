@@ -295,9 +295,17 @@ $$\sum_{i=1}^{n} (2i - 1) = n^2.$$
 
 **Solution.** Let $P(n)$ be the statement above.
 
-*Base case ($n = 1$):* $\sum_{i=1}^{1}(2i-1) = 1 = 1^2$. So $P(1)$ is true.
+*Base case ($n = 1$):*
 
-*Inductive step:* Assume $P(k)$: $\sum_{i=1}^{k}(2i - 1) = k^2$. Then
+$$\sum_{i=1}^{1}(2i-1) = 2(1) - 1 = 1 = 1^2.$$
+
+So $P(1)$ is true.
+
+*Inductive step:* Assume $P(k)$ holds for some $k \ge 1$:
+
+$$\sum_{i=1}^{k}(2i - 1) = k^2.$$
+
+Then for $k+1$:
 
 $$\sum_{i=1}^{k+1}(2i-1) = \underbrace{\sum_{i=1}^{k}(2i-1)}_{=\, k^2} + (2(k+1) - 1) = k^2 + 2k + 1 = (k+1)^2,$$
 
