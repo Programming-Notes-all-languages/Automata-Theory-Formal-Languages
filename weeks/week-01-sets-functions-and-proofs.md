@@ -10,8 +10,8 @@
 ### 1.1 Definition
 
 > **Definition (Set).** A *set* is a collection of elements with no structure other than membership.
-> - Order does not matter: $\{a, b\} = \{b, a\}$.
-> - Duplicates do not count more than once: $\{a, a, b\} = \{a, b\}$.
+> - Order does not matter: $\lbracea, b\rbrace = \lbraceb, a\rbrace$.
+> - Duplicates do not count more than once: $\lbracea, a, b\rbrace = \lbracea, b\rbrace$.
 
 If $x$ is an element of set $S$, we write $x \in S$ ("$x$ belongs to $S$"). The negation is written $x \notin S$.
 
@@ -19,21 +19,21 @@ If $x$ is an element of set $S$, we write $x \in S$ ("$x$ belongs to $S$"). The 
 
 **1. Roster (listing) notation.** List the elements inside braces, using an ellipsis $\cdots$ when the pattern is clear:
 
-$$\{a, b, \dots, z\} = \text{all lowercase English letters}, \qquad \{2, 4, 6, \dots\} = \text{positive even integers}.$$
+$$\lbracea, b, \dots, z\rbrace = \text{all lowercase English letters}, \qquad \lbrace2, 4, 6, \dots\rbrace = \text{positive even integers}.$$
 
 **2. Set-builder notation.** Describe a property that exactly the members satisfy:
 
-$$S = \{\, i : i > 0,\ i \text{ is even}\,\}$$
+$$S = \lbrace\, i : i > 0,\ i \text{ is even}\,\rbrace$$
 
-read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\{\, x : P(x)\,\}$ — "all $x$ with property $P$."
+read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\lbrace\, x : P(x)\,\rbrace$ — "all $x$ with property $P$."
 
 **3. Venn diagrams.** Draw the universal set as a rectangle and each set as a closed region; overlaps show intersection. Useful for visualizing subset/union/complement relationships.
 
 ### 1.3 Set Properties
 
-> **Definition (Cardinality).** The *cardinality* of a finite set $S$ is the number of elements it contains, written $|S|$. Duplicates are not counted: if $C = \{a, a, b, b, b, c\}$ then $|C| = 3$.
+> **Definition (Cardinality).** The *cardinality* of a finite set $S$ is the number of elements it contains, written $|S|$. Duplicates are not counted: if $C = \lbracea, a, b, b, b, c\rbrace$ then $|C| = 3$.
 
-> **Definition (Empty Set).** The set with no elements is the *empty set* (or *null set*), written $\varnothing$ or $\{\}$. Note that $\varnothing \neq \{\varnothing\}$: the empty set contains nothing ($|\varnothing| = 0$), while $\{\varnothing\}$ contains exactly one element — namely the empty set itself ($|\{\varnothing\}| = 1$).
+> **Definition (Empty Set).** The set with no elements is the *empty set* (or *null set*), written $\varnothing$ or $\lbrace\rbrace$. Note that $\varnothing \neq \lbrace\varnothing\rbrace$: the empty set contains nothing ($|\varnothing| = 0$), while $\lbrace\varnothing\rbrace$ contains exactly one element — namely the empty set itself ($|\lbrace\varnothing\rbrace| = 1$).
 
 > **Definition (Subset).** $S_1$ is a *subset* of $S$, written $S_1 \subseteq S$, if every element of $S_1$ is also an element of $S$:
 > $$S_1 \subseteq S \iff (\forall x)(x \in S_1 \Rightarrow x \in S).$$
@@ -50,22 +50,22 @@ A set is **finite** if it contains finitely many elements; otherwise it is **inf
 > **Definition (Powerset).** The *powerset* of $S$, written $\mathcal{P}(S)$ or $2^S$, is the set of all subsets of $S$ — a set of sets. If $|S| = n$, then
 > $$|\mathcal{P}(S)| = 2^{n}.$$
 
-**Example.** For $S = \{a, b, c\}$:
+**Example.** For $S = \lbracea, b, c\rbrace$:
 
-$$\mathcal{P}(S) = \left\{\varnothing,\ \{a\},\ \{b\},\ \{c\},\ \{a,b\},\ \{a,c\},\ \{b,c\},\ \{a,b,c\}\right\}$$
+$$\mathcal{P}(S) = \left\lbrace\varnothing,\ \lbracea\rbrace,\ \lbraceb\rbrace,\ \lbracec\rbrace,\ \lbracea,b\rbrace,\ \lbracea,c\rbrace,\ \lbraceb,c\rbrace,\ \lbracea,b,c\rbrace\right\rbrace$$
 
 so $|S| = 3$ and $|\mathcal{P}(S)| = 8 = 2^3$.
 
 > **Definition (Cartesian Product).** For sets $S_1, S_2$, the *Cartesian product* is the set of all ordered pairs:
-> $$S_1 \times S_2 = \{\,(x, y) : x \in S_1,\ y \in S_2\,\}.$$
+> $$S_1 \times S_2 = \lbrace\,(x, y) : x \in S_1,\ y \in S_2\,\rbrace.$$
 
 Order matters in a pair: $(4, 2)$ and $(2, 4)$ are different. For $n$ sets:
 
-$$S_1 \times S_2 \times \cdots \times S_n = \{\,(x_1, x_2, \dots, x_n) : x_i \in S_i\,\}.$$
+$$S_1 \times S_2 \times \cdots \times S_n = \lbrace\,(x_1, x_2, \dots, x_n) : x_i \in S_i\,\rbrace.$$
 
-**Example.** With $S_1 = \{2, 4\}$ and $S_2 = \{2, 3, 5, 6\}$:
+**Example.** With $S_1 = \lbrace2, 4\rbrace$ and $S_2 = \lbrace2, 3, 5, 6\rbrace$:
 
-$$S_1 \times S_2 = \{(2,2),(2,3),(2,5),(2,6),(4,2),(4,3),(4,5),(4,6)\}.$$
+$$S_1 \times S_2 = \lbrace(2,2),(2,3),(2,5),(2,6),(4,2),(4,3),(4,5),(4,6)\rbrace.$$
 
 $(4,2) \in S_1 \times S_2$ but $(2,4) \notin S_1 \times S_2$.
 
@@ -75,12 +75,12 @@ For sets $S_1, S_2$:
 
 | Operation | Definition |
 |---|---|
-| **Union** | $S_1 \cup S_2 = \{\, x : x \in S_1 \text{ or } x \in S_2\,\}$ |
-| **Intersection** | $S_1 \cap S_2 = \{\, x : x \in S_1 \text{ and } x \in S_2\,\}$ |
-| **Difference** | $S_1 - S_2 = \{\, x : x \in S_1 \text{ and } x \notin S_2\,\}$ |
+| **Union** | $S_1 \cup S_2 = \lbrace\, x : x \in S_1 \text{ or } x \in S_2\,\rbrace$ |
+| **Intersection** | $S_1 \cap S_2 = \lbrace\, x : x \in S_1 \text{ and } x \in S_2\,\rbrace$ |
+| **Difference** | $S_1 - S_2 = \lbrace\, x : x \in S_1 \text{ and } x \notin S_2\,\rbrace$ |
 
 > **Definition (Complement).** Given a universal set $U$ of all possible elements under discussion, the *complement* of $S$ is
-> $$\overline{S} = U - S = \{\, x : x \in U \text{ and } x \notin S\,\}.$$
+> $$\overline{S} = U - S = \lbrace\, x : x \in U \text{ and } x \notin S\,\rbrace.$$
 
 **Basic identities with $\varnothing$:**
 
@@ -99,7 +99,7 @@ These are needed repeatedly throughout the course (e.g., when manipulating regul
 
 > **Definition (Function).** A *function* is a rule that assigns to each element of one set exactly one element of another set. We write
 > $$f : S_1 \to S_2$$
-> where $S_1$ is the **domain**, $S_2$ is the **codomain** (target), and $f(a)$ is the output assigned to input $a$. The *range* (or image) of $f$ is $\{\, f(a) : a \in S_1\,\} \subseteq S_2$.
+> where $S_1$ is the **domain**, $S_2$ is the **codomain** (target), and $f(a)$ is the output assigned to input $a$. The *range* (or image) of $f$ is $\lbrace\, f(a) : a \in S_1\,\rbrace \subseteq S_2$.
 
 - If the domain is all of $S_1$, $f$ is a **total function** on $S_1$; otherwise it is a **partial function**.
 - In CS we often study functions whose inputs/outputs are positive integers and care only about behavior as the argument grows large — this motivates *order-of-magnitude* notation.
@@ -164,39 +164,39 @@ To prove a claim: assume the **negation** of the claim, derive a logical contrad
 
 ### Problem 1 — Set-builder notation
 
-Write $B = \{1, 4, 9, 16, 25, 36, 49, 64, 81, 100\}$ in set-builder notation.
+Write $B = \lbrace1, 4, 9, 16, 25, 36, 49, 64, 81, 100\rbrace$ in set-builder notation.
 
 **Solution.** Each element is a perfect square from $1^2$ to $10^2$:
 
-$$B = \{\, k^2 : k \in \mathbb{N},\ 1 \le k \le 10\,\}.$$
+$$B = \lbrace\, k^2 : k \in \mathbb{N},\ 1 \le k \le 10\,\rbrace.$$
 
 ### Problem 2 — Expanding set-builder notation
 
-List all elements of $B = \{\, 2k + 1 : k \in \mathbb{N},\ 0 \le k \le 4\,\}$.
+List all elements of $B = \lbrace\, 2k + 1 : k \in \mathbb{N},\ 0 \le k \le 4\,\rbrace$.
 
 **Solution.** Substitute $k = 0, 1, 2, 3, 4$:
 
-$$B = \{1, 3, 5, 7, 9\}.$$
+$$B = \lbrace1, 3, 5, 7, 9\rbrace.$$
 
 ### Problem 3 — Cardinality with duplicates
 
-Let $C = \{a, a, b, b, b, c\}$. What is $|C|$?
+Let $C = \lbracea, a, b, b, b, c\rbrace$. What is $|C|$?
 
-**Solution.** Duplicates are not counted: $C = \{a, b, c\}$, so $|C| = 3$.
+**Solution.** Duplicates are not counted: $C = \lbracea, b, c\rbrace$, so $|C| = 3$.
 
-### Problem 4 — $\varnothing$ vs. $\{\varnothing\}$
+### Problem 4 — $\varnothing$ vs. $\lbrace\varnothing\rbrace$
 
-What is the difference between $\varnothing$ and $\{\varnothing\}$?
+What is the difference between $\varnothing$ and $\lbrace\varnothing\rbrace$?
 
-**Solution.** $\varnothing$ contains no elements at all ($|\varnothing| = 0$). The set $\{\varnothing\}$ has exactly one element, which happens to be the empty set itself ($|\{\varnothing\}| = 1$). So $\varnothing \neq \{\varnothing\}$ and in fact $\varnothing \subset \{\varnothing\}$.
+**Solution.** $\varnothing$ contains no elements at all ($|\varnothing| = 0$). The set $\lbrace\varnothing\rbrace$ has exactly one element, which happens to be the empty set itself ($|\lbrace\varnothing\rbrace| = 1$). So $\varnothing \neq \lbrace\varnothing\rbrace$ and in fact $\varnothing \subset \lbrace\varnothing\rbrace$.
 
 ### Problem 5 — All subsets of a 3-element set
 
-Write all subsets of $S = \{1, 2, 3\}$.
+Write all subsets of $S = \lbrace1, 2, 3\rbrace$.
 
 **Solution.** There are $2^{|S|} = 2^3 = 8$ subsets:
 
-$$\mathcal{P}(S) = \left\{\varnothing,\ \{1\},\ \{2\},\ \{3\},\ \{1,2\},\ \{1,3\},\ \{2,3\},\ \{1,2,3\}\right\}.$$
+$$\mathcal{P}(S) = \left\lbrace\varnothing,\ \lbrace1\rbrace,\ \lbrace2\rbrace,\ \lbrace3\rbrace,\ \lbrace1,2\rbrace,\ \lbrace1,3\rbrace,\ \lbrace2,3\rbrace,\ \lbrace1,2,3\rbrace\right\rbrace.$$
 
 ### Problem 6 — Big-O: $4n^2 + 2 = O(n^2)$
 
@@ -361,7 +361,7 @@ But the left side is an even integer and the right side is odd — a contradicti
 | Symbol | Meaning |
 |---|---|
 | $x \in S$, $x \notin S$ | membership / non-membership |
-| $\varnothing$ or $\{\}$ | empty set |
+| $\varnothing$ or $\lbrace\rbrace$ | empty set |
 | $A \subseteq B$, $A \subset B$ | subset / proper subset |
 | $A = B$ | iff $A \subseteq B$ and $B \subseteq A$ |
 | $A \cup B$, $A \cap B$, $A - B$ | union, intersection, difference |
