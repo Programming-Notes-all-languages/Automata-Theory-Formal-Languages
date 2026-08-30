@@ -13,11 +13,11 @@
 > - Order does not matter: $\lbrace a, b\rbrace = \lbrace b, a\rbrace$.
 > - Duplicates do not count more than once: $\lbrace a, a, b\rbrace = \lbrace a, b\rbrace$.
 
-If $x$ is an element of set $S$, we write $x \in S$ ("$x$ belongs to $S$"). The negation is written $x \notin S$.
+If $x$ is an element of set $S$, we write $x \in S$ (meaning $x$ belongs to $S$). The negation is written $x \notin S$.
 
 ### 1.2 Ways to Represent a Set
 
-**1. Roster (listing) notation.** List the elements inside braces, using an ellipsis $\cdots$ when the pattern is clear:
+**1. Roster (listing) notation.** List the elements inside braces, using an ellipsis $\dots$ when the pattern is clear:
 
 $$\lbrace a, b, \dots, z\rbrace = \text{all lowercase English letters}, \qquad \lbrace 2, 4, 6, \dots\rbrace = \text{positive even integers}.$$
 
@@ -25,7 +25,7 @@ $$\lbrace a, b, \dots, z\rbrace = \text{all lowercase English letters}, \qquad \
 
 $$S = \lbrace \, i : i > 0,\ i \text{ is even}\,\rbrace$$
 
-read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\lbrace \, x : P(x)\,\rbrace$ — "all $x$ with property $P$."
+read as: $S$ is the set of all $i$ such that $i > 0$ and $i$ is even (with $i$ understood to range over integers). The general form is $\lbrace \, x : P(x)\,\rbrace$, representing all elements $x$ satisfying property $P(x)$.
 
 **3. Venn diagrams.** Draw the universal set as a rectangle and each set as a closed region; overlaps show intersection. Useful for visualizing subset/union/complement relationships.
 
@@ -106,7 +106,7 @@ These are needed repeatedly throughout the course (e.g., when manipulating regul
 
 ### 2.2 Dominant Term and Growth Rate
 
-For $f(n) = 2n^2 + 3n$: ask "when $n$ becomes very large, which term matters most?" The $n^2$ term dominates the linear term — for asymptotic growth, constants and lower-order terms become negligible.
+For $f(n) = 2n^2 + 3n$: as $n$ becomes very large, the $n^2$ term dominates the linear term — for asymptotic growth, constants and lower-order terms become negligible.
 
 **Growth comparison.** Let $f(n) = 2n+1$, $g(n) = n^2$, $h(n) = 2^n$:
 
@@ -281,7 +281,7 @@ which is exactly $P(k+1)$ (with $n = k+1$). By induction, the formula holds for 
 
 Prove by induction that for every integer $n \ge 2$, $n^3 - n$ is divisible by 3.
 
-**Solution.** Let $P(n)$ be "$n^3 - n$ is divisible by 3."
+**Solution.** Let $P(n)$ be the proposition that $n^3 - n$ is divisible by 3.
 
 **Base case** ($n = 2$):
 
@@ -323,7 +323,7 @@ which is $P(k+1)$. By induction the identity holds for all $n \ge 1$. $\blacksqu
 
 Show that every integer $n \ge 2$ is divisible by a prime number.
 
-**Solution (strong induction).** Let $P(n)$ be "$n$ is divisible by a prime."
+**Solution (strong induction).** Let $P(n)$ be the proposition that $n$ is divisible by a prime.
 
 **Base case:** $P(2)$ holds since 2 itself is prime.
 
