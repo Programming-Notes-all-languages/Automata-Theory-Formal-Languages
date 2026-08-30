@@ -257,19 +257,23 @@ $$0.1\, h(n) = n^2 + 10 \le 2n^2 + 3n \le 5(10n^2 + 100) = 5\, h(n).$$
 
 Prove by induction that for all $n \ge 1$:
 
-$$1 + 2 + 3 + \cdots + n = \frac{n(n+1)}{2}.$$
+$$1 + 2 + 3 + \dots + n = \frac{n(n+1)}{2}.$$
 
 **Solution.** Let $P(n)$ be the statement above.
 
-*Base case ($n = 1$):* LHS $= 1$, RHS $= \frac{1(1+1)}{2} = 1$. So $P(1)$ is true.
+**Base case** ($n = 1$):
 
-*Inductive step:* Assume $P(k)$ for some $k \ge 1$:
+$$\text{LHS} = 1, \qquad \text{RHS} = \frac{1(1+1)}{2} = 1.$$
 
-$$1 + 2 + \cdots + k = \frac{k(k+1)}{2}.$$
+So $P(1)$ is true.
+
+**Inductive step:** Assume $P(k)$ holds for some $k \ge 1$:
+
+$$1 + 2 + \dots + k = \frac{k(k+1)}{2}.$$
 
 Add the $(k+1)$-st term to both sides:
 
-$$1 + 2 + \cdots + k + (k+1) = \frac{k(k+1)}{2} + (k+1) = \frac{(k+1)(k + 2)}{2},$$
+$$1 + 2 + \dots + k + (k+1) = \frac{k(k+1)}{2} + (k+1) = \frac{(k+1)(k + 2)}{2},$$
 
 which is exactly $P(k+1)$ (with $n = k+1$). By induction, the formula holds for all $n \ge 1$. $\blacksquare$
 
@@ -279,9 +283,13 @@ Prove by induction that for every integer $n \ge 2$, $n^3 - n$ is divisible by 3
 
 **Solution.** Let $P(n)$ be "$n^3 - n$ is divisible by 3."
 
-*Base case ($n = 2$):* $2^3 - 2 = 8 - 2 = 6 = 3 \cdot 2$. So $P(2)$ is true.
+**Base case** ($n = 2$):
 
-*Inductive step:* Assume $P(k)$: $k^3 - k = 3m$ for some integer $m$. Consider $(k+1)^3 - (k+1)$:
+$$2^3 - 2 = 8 - 2 = 6 = 3 \cdot 2.$$
+
+So $P(2)$ is true.
+
+**Inductive step:** Assume $P(k)$ holds: $k^3 - k = 3m$ for some integer $m$. Consider $(k+1)^3 - (k+1)$:
 
 $$(k+1)^3 - (k+1) = k^3 + 3k^2 + 3k + 1 - k - 1 = \underbrace{(k^3 - k)}_{= 3m} + 3k^2 + 3k = 3(m + k^2 + k),$$
 
@@ -295,13 +303,13 @@ $$\sum_{i=1}^{n} (2i - 1) = n^2.$$
 
 **Solution.** Let $P(n)$ be the statement above.
 
-*Base case ($n = 1$):*
+**Base case** ($n = 1$):
 
 $$\sum_{i=1}^{1}(2i-1) = 2(1) - 1 = 1 = 1^2.$$
 
 So $P(1)$ is true.
 
-*Inductive step:* Assume $P(k)$ holds for some $k \ge 1$:
+**Inductive step:** Assume $P(k)$ holds for some $k \ge 1$:
 
 $$\sum_{i=1}^{k}(2i - 1) = k^2.$$
 
@@ -317,9 +325,9 @@ Show that every integer $n \ge 2$ is divisible by a prime number.
 
 **Solution (strong induction).** Let $P(n)$ be "$n$ is divisible by a prime."
 
-*Base case:* $P(2)$ holds since 2 itself is prime.
+**Base case:** $P(2)$ holds since 2 itself is prime.
 
-*Inductive step:* Assume $P(i)$ for **all** integers $2 \le i < k+1$. We prove $P(k+1)$. Two cases:
+**Inductive step:** Assume $P(i)$ holds for **all** integers $2 \le i < k+1$. We prove $P(k+1)$. Two cases:
 
 - **(a)** $k + 1$ is prime — then it is divisible by a prime (itself).
 - **(b)** $k + 1$ is composite — then $k+1 = ab$ with $2 \le a, b \le k$. By the strong inductive hypothesis, $a$ is divisible by some prime $p$, and since $p \mid a$ and $a \mid (k+1)$, we get $p \mid (k+1)$.
