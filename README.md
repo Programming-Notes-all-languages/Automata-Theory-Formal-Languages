@@ -10,8 +10,8 @@ Textbook: *An Introduction to Formal Languages and Automata* (7th ed.), Peter Li
 | Week | Topic | Notes |
 |---|---|---|
 | 1–2 | Notations & proofs: sets, functions, growth rates, induction, contradiction | [Week 1](weeks/week-01-sets-functions-and-proofs.md) |
-| 3 | Languages and grammars | — |
-| 4–5 | Deterministic finite automata (DFAs) | — |
+| 3 | Languages and grammars | [Week 3](weeks/week-03-languages-and-grammars.md) |
+| 4–5 | Deterministic finite automata (DFAs) | [Weeks 4–5](weeks/week-04-05-deterministic-finite-automata.md) |
 | 6–8 | NFAs, regular expressions, regular grammars | — |
 | 9 | Review + midterm exam | — |
 | 10–11 | Pumping lemma for regular languages | — |
@@ -22,4 +22,4 @@ Textbook: *An Introduction to Formal Languages and Automata* (7th ed.), Peter Li
 ## Conventions
 
 - Math is written in LaTeX (`$...$` / `$$...$$`) and renders on GitHub.
-- Each week's file contains: definitions (quoted blocks), worked examples, and all problems solved from class with full steps.
+- Each week's file contains concise definitions, formulas, explanations, and a quick-reference table.
