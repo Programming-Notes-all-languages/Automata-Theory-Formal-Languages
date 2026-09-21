@@ -32,17 +32,17 @@ The formal tuple and its transition graph describe the same automaton.
 
 ### 1.2 Extended Transition Function
 
-> **Definition (Extended Transition Function).** The extended transition function $\delta^* : Q \times \Sigma^* \to Q$ gives the state reached after reading a whole string. It is defined recursively by
+> **Definition (Extended Transition Function).** The extended transition function $\delta^{*} : Q \times \Sigma^{*} \to Q$ gives the state reached after reading a whole string. It is defined recursively by
 
 $$
-\delta^*(q, \lambda) = q,
+\delta^{*}(q, \lambda) = q,
 $$
 
 $$
-\delta^*(q, wa) = \delta(\delta^*(q, w), a),
+\delta^{*}(q, wa) = \delta(\delta^{*}(q, w), a),
 $$
 
-> for every $q \in Q$, $w \in \Sigma^*$, and $a \in \Sigma$.
+> for every $q \in Q$, $w \in \Sigma^{*}$, and $a \in \Sigma$.
 
 The base case says that reading no input leaves the automaton in its current state. The recursive case processes the final symbol after the prefix $w$.
 
@@ -53,13 +53,13 @@ The base case says that reading no input leaves the automaton in its current sta
 > **Definition (Language Accepted by a DFA).** The language accepted by $M = (Q, \Sigma, \delta, q_0, F)$ is
 
 $$
-L(M) = \lbrace w \in \Sigma^* : \delta^*(q_0, w) \in F \rbrace.
+L(M) = \lbrace w \in \Sigma^{*} : \delta^{*}(q_0, w) \in F \rbrace.
 $$
 
-Its complement with respect to $\Sigma^*$ is
+Its complement with respect to $\Sigma^{*}$ is
 
 $$
-\overline{L(M)} = \lbrace w \in \Sigma^* : \delta^*(q_0, w) \notin F \rbrace.
+\overline{L(M)} = \lbrace w \in \Sigma^{*} : \delta^{*}(q_0, w) \notin F \rbrace.
 $$
 
 > **Definition (Regular Language).** A language $L$ is *regular* if and only if there is a DFA $M$ such that $L = L(M)$.
@@ -79,8 +79,8 @@ A DFA has only finitely many states, so it can record only finitely many distinc
 | $\delta(q, a)$ | state reached from $q$ after reading symbol $a$ |
 | $q_0$ | initial state |
 | $F$ | set of final (accepting) states |
-| $\delta^* : Q \times \Sigma^* \to Q$ | extended transition function for whole strings |
-| $\delta^*(q, \lambda) = q$ | no input leaves the current state unchanged |
+| $\delta^{*} : Q \times \Sigma^{*} \to Q$ | extended transition function for whole strings |
+| $\delta^{*}(q, \lambda) = q$ | no input leaves the current state unchanged |
 | $L(M)$ | strings that leave $M$ in a final state |
 | regular language | language accepted by some DFA |
-| $\overline{L}$ | complement relative to $\Sigma^*$ |
+| $\overline{L}$ | complement relative to $\Sigma^{*}$ |
