@@ -3,11 +3,14 @@
 **Course:** COT 4210 — Automata Theory & Formal Languages (USF Fall 2026)
 **Lecture 1** · Topics: sets and set operations, functions and growth rates (Big-O / Big-Ω / Big-Θ), proof techniques (induction, strong induction, contradiction).
 **Sections:** 1.1 Mathematical Preliminaries and Notation (PDF pp. 19–37).
+**Introduction:** Theory-of-computation overview (PDF pp. 15–18).
 **Source:** Peter Linz, *An Introduction to Formal Languages and Automata*, local 6th-edition PDF. Page references count PDF pages, not printed pages; the course lists the 7th edition.
 
 ---
 
 ## 1. Sets
+
+The **theory of computation** studies abstract models of computers and the languages they process. **Computability** concerns whether a problem can be solved algorithmically at all; **complexity** concerns the resources needed to solve it. Languages describe sets of permitted strings, grammars generate those strings, and automata process them.
 
 ### 1.1 Definition
 
