@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="366" viewBox="0 0 640 260" role="img" aria-labelledby="title desc">
+  <title id="title">Part (a): minimized DFA</title>
+  <desc id="desc">Start at nonaccepting q0. On b, remain in q0. On a, move to accepting M, the merge of q1 and q2. M has a self-loop on both a and b. The unreachable original state q3 is removed.</desc>
+  <style>
+    svg { color:#172033; }
+    .background { fill:#ffffff; }
+    text { font-family:system-ui, sans-serif; fill:currentColor; }
+    .edge { fill:none; stroke:currentColor; stroke-width:2.6; }
+    .state { fill:#eaf2ff; stroke:currentColor; stroke-width:2.6; }
+    .accepting { fill:#e8f6eb; }
+    .inner { fill:none; }
+    @media (prefers-color-scheme:dark) {
+      svg { color:#edf2f7; }
+      .background { fill:#0d1117; }
+      .state { fill:#17263b; }
+      .accepting { fill:#163327; }
+      .inner { fill:none; }
+    }
+  </style>
+  <rect class="background" width="640" height="260" rx="10"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <text x="22" y="30" font-size="21" font-weight="600">Part (a): minimized DFA</text>
+  <path class="edge" d="M 30 165 L 133 165" marker-end="url(#arrow)"/>
+  <text x="42" y="148" font-size="17">start</text>
+  <path class="edge" data-from="q0" data-symbols="a" data-to="M" d="M 225 165 L 413 165" marker-end="url(#arrow)"/>
+  <text x="315" y="148" font-size="23">a</text>
+  <path class="edge" data-from="q0" data-symbols="b" data-to="q0" d="M 152 130 C 100 50 260 50 208 130" marker-end="url(#arrow)"/>
+  <text x="180" y="71" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="M" data-symbols="a b" data-to="M" d="M 432 130 C 380 50 540 50 488 130" marker-end="url(#arrow)"/>
+  <text x="460" y="71" text-anchor="middle" font-size="23">a, b</text>
+  <circle class="state" data-state="q0" cx="180" cy="165" r="45"/>
+  <text x="180" y="174" text-anchor="middle" font-size="27">q<tspan baseline-shift="sub" font-size="18">0</tspan></text>
+  <circle class="state accepting" data-state="M" data-accepting="true" cx="460" cy="165" r="45"/>
+  <circle class="state inner" cx="460" cy="165" r="37"/>
+  <text x="460" y="174" text-anchor="middle" font-size="27">M</text>
+  <text x="460" y="243" text-anchor="middle" font-size="17">M = {q<tspan baseline-shift="sub" font-size="12">1</tspan>, q<tspan baseline-shift="sub" font-size="12">2</tspan>} (accepting)</text>
+</svg>

@@ -180,6 +180,44 @@ The transition is well-defined because any representatives of the same class lea
 
 Minimality depends on both conditions: every remaining state is reachable, and every distinct pair is distinguishable. A smaller equivalent DFA would have to identify two reachable input histories that some continuation distinguishes, causing it to give the same answer where the language requires different answers. This procedure minimizes **DFAs**, not NFAs.
 
+### 3.4 Exam Practice — Remove an Unreachable State and Merge Equivalent States
+
+<details>
+<summary>Example — DFA minimization, part (a)</summary>
+
+**Source:** the supplied exam-practice diagram, part (a), not a textbook exercise or submitted assignment.
+
+**Question.** Minimize the following DFA over inputs `a` and `b`. The start state is $q_0$, and the accepting states are $q_1$ and $q_2$.
+
+| Original state | On `a` → | On `b` → | Accepting? |
+|---|---|---|---|
+| $q_0$ — start | $q_1$ | $q_0$ | No |
+| $q_1$ | $q_2$ | $q_1$ | Yes |
+| $q_2$ | $q_1$ | $q_2$ | Yes |
+| $q_3$ | $q_1$ | $q_2$ | No |
+
+<details>
+<summary>Solution</summary>
+
+1. **Remove the unreachable state.** No transition enters $q_3$, and it is not the start state. No input from $q_0$ can reach it, so remove $q_3$ and its outgoing arrows.
+2. **Merge the equivalent accepting states.** Both $q_1$ and $q_2$ are accepting. On either symbol, each stays within their group, so every continuation is accepted from both. Name their merged state $M$.
+3. **Redirect transitions to the merged state.** Any original destination $q_1$ or $q_2$ becomes $M$. In particular, their `a` arrows between each other become an `a` self-loop; their `b` self-loops also remain inside $M$.
+
+![Minimized DFA: start at nonaccepting q0; b loops at q0, a leads to accepting M, and M loops on a and b.](../assets/dfa-minimization-part-a.svg)
+
+| Reduced state | On `a` → | On `b` → | Accepting? |
+|---|---|---|---|
+| $q_0$ — start | $M$ | $q_0$ | No |
+| $M$ — merged $q_1, q_2$ | $M$ | $M$ | Yes |
+
+**Minimum: two states.** Both are reachable: $q_0$ is the start state, and `a` reaches $M$. They cannot merge because the empty continuation $\lambda$ rejects from $q_0$ but accepts from $M$.
+
+**Key distinction:** the groups $q_0$, $q_3$, and the merged $q_1, q_2$ describe equivalence before unreachable-state removal. Reading `b` distinguishes $q_0$ from $q_3$, but $q_3$ is still removed because it is unreachable. Only reachable groups belong in the final minimized DFA.
+
+</details>
+
+</details>
+
 ---
 
 ## 4. Regular Expressions — Section 3.1
