@@ -33,18 +33,18 @@ A graph has an edge from $p$ to $q$ labeled $a$ exactly when $q \in \delta(p, a)
 
 ### 1.1 Extended Transitions and Acceptance
 
-> **Definition (NFA Extended Transition Function).** $\delta^{*}(p, w)$ is the set of all states reachable from $p$ by a walk labeled $w$, including any $\lambda$-moves before, between, or after its symbols.
+> **Definition (NFA Extended Transition Function).** $\delta^{\ast}(p, w)$ is the set of all states reachable from $p$ by a walk labeled $w$, including any $\lambda$-moves before, between, or after its symbols.
 
 $$
-\delta^{*} : Q \times \Sigma^{*} \to 2^Q.
+\delta^{\ast} : Q \times \Sigma^{\ast} \to 2^Q.
 $$
 
-The direct transition $\delta(p, \lambda)$ lists destinations of **one** $\lambda$-move. In contrast, $\delta^{*}(p, \lambda)$ includes $p$ itself and every state reachable by zero or more such moves. Similarly, $\delta^{*}(p, a)$ may include more than the direct destinations $\delta(p, a)$.
+The direct transition $\delta(p, \lambda)$ lists destinations of **one** $\lambda$-move. In contrast, $\delta^{\ast}(p, \lambda)$ includes $p$ itself and every state reachable by zero or more such moves. Similarly, $\delta^{\ast}(p, a)$ may include more than the direct destinations $\delta(p, a)$.
 
 > **Definition (Language Accepted by an NFA).** The accepted language is
 
 $$
-L(M) = \lbrace w \in \Sigma^{*} : \delta^{*}(q_0, w) \cap F \ne \varnothing \rbrace .
+L(M) = \lbrace w \in \Sigma^{\ast} : \delta^{\ast}(q_0, w) \cap F \ne \varnothing \rbrace .
 $$
 
 A route that gets stuck or finishes in a nonfinal state does not invalidate another accepting route. Visiting a final state while unread input remains is not enough. The empty string is accepted precisely when a final state is reachable from $q_0$ using only $\lambda$-moves.
@@ -63,7 +63,7 @@ S_0 = E(\lbrace q_0 \rbrace ),
 S_{i+1} = E\left(\bigcup_{q \in S_i} \delta(q, a_{i+1})\right).
 $$
 
-After reading $w = a_1\cdots a_n$, $S_n = \delta^{*}(q_0, w)$. Accept when $S_n$ contains a final state. Closure exploration records already visited states, so $\lambda$-cycles do not force endless exploration.
+After reading $w = a_1\cdots a_n$, $S_n = \delta^{\ast}(q_0, w)$. Accept when $S_n$ contains a final state. Closure exploration records already visited states, so $\lambda$-cycles do not force endless exploration.
 
 The book also gives a finite bound for labeled-walk enumeration. If a walk labeled $w$ exists, one exists whose number of edges is at most
 
@@ -114,7 +114,7 @@ $$
 
 If a transition yields $\varnothing$, that subset is a nonfinal DFA trap; all its transitions return to $\varnothing$. Do not omit it if it is reachable: the DFA transition function must be total.
 
-The book's procedure instead starts with the label $\lbrace q_0 \rbrace$, unions extended one-symbol transitions $\delta_N^{*}(q, a)$, and separately marks its initial vertex final if the NFA accepts $\lambda$. The closure-first formulation above incorporates the empty-string case directly and keeps every reachable subset closed under $\lambda$-moves.
+The book's procedure instead starts with the label $\lbrace q_0 \rbrace$, unions extended one-symbol transitions $\delta_N^{\ast}(q, a)$, and separately marks its initial vertex final if the NFA accepts $\lambda$. The closure-first formulation above incorporates the empty-string case directly and keeps every reachable subset closed under $\lambda$-moves.
 
 ### 2.2 Why the Construction Works
 
@@ -139,8 +139,8 @@ Two states can look different but remember exactly the same information for futu
 $$
 p \sim q
 \quad\Longleftrightarrow\quad
-\text{for every } w \in \Sigma^{*},\quad
-\delta^{*}(p, w) \in F \iff \delta^{*}(q, w) \in F.
+\text{for every } w \in \Sigma^{\ast},\quad
+\delta^{\ast}(p, w) \in F \iff \delta^{\ast}(q, w) \in F.
 $$
 
 > **Definition (Distinguishing String).** States are distinguishable if some string $w$ makes exactly one of the two resulting states final. Such a $w$ is a distinguishing string.
@@ -186,7 +186,7 @@ Minimality depends on both conditions: every remaining state is reachable, and e
 
 A regular expression describes a language by combining choices, sequences, and repetitions. The expression is notation; the language it denotes is a set of strings.
 
-> **Definition (Regular Expression).** Over alphabet $\Sigma$, the primitives are $\varnothing$, $\lambda$, and each symbol $a \in \Sigma$. From regular expressions $r_1$ and $r_2$, form $r_1 + r_2$, $r_1r_2$, $r_1^{*}$, and $(r_1)$. Only expressions obtained by finitely many such steps are regular expressions.
+> **Definition (Regular Expression).** Over alphabet $\Sigma$, the primitives are $\varnothing$, $\lambda$, and each symbol $a \in \Sigma$. From regular expressions $r_1$ and $r_2$, form $r_1 + r_2$, $r_1r_2$, $r_1^{\ast}$, and $(r_1)$. Only expressions obtained by finitely many such steps are regular expressions.
 
 ### 4.1 Language Meaning and Precedence
 
@@ -197,7 +197,7 @@ A regular expression describes a language by combining choices, sequences, and r
 | $a$ | $\lbrace a \rbrace$: one one-symbol string |
 | $r_1 + r_2$ | Union of the two languages |
 | $r_1r_2$ or $r_1 \cdot r_2$ | Concatenation of the two languages |
-| $r^{*}$ | Zero or more repetitions of strings from $L(r)$ |
+| $r^{\ast}$ | Zero or more repetitions of strings from $L(r)$ |
 | $(r)$ | Same language; parentheses control grouping |
 
 The recursive semantic rules are
@@ -206,7 +206,7 @@ $$
 \begin{aligned}
 L(r_1 + r_2) &= L(r_1) \cup L(r_2),\\
 L(r_1r_2) &= L(r_1)L(r_2),\\
-L(r^{*}) &= (L(r))^{*}.
+L(r^{\ast}) &= (L(r))^{\ast}.
 \end{aligned}
 $$
 
@@ -227,7 +227,7 @@ $$
 r + \varnothing &\equiv r,\\
 r\varnothing &\equiv \varnothing r \equiv \varnothing,\\
 r\lambda &\equiv \lambda r \equiv r,\\
-\varnothing^{*} &\equiv \lambda.
+\varnothing^{\ast} &\equiv \lambda.
 \end{aligned}
 $$
 
@@ -250,7 +250,7 @@ Build an NFA recursively, following the expression's structure. Keep component s
 | $a$ | An $a$-edge from entrance to exit |
 | $r_1 + r_2$ | New entrance branches by $\lambda$ to either component; their exits join a new exit |
 | $r_1r_2$ | Link first component's exit to second component's entrance by $\lambda$ |
-| $r^{*}$ | Permit bypass for zero repetitions and a $\lambda$-link back for further repetitions |
+| $r^{\ast}$ | Permit bypass for zero repetitions and a $\lambda$-link back for further repetitions |
 
 For star, add a new entrance and exit: link entrance to both the component entrance and new exit, then link the component exit to both the component entrance and new exit. Old final states lose final status when embedded; only the combined exit is final. Otherwise a fragment could accept before a required following component is consumed.
 
@@ -269,7 +269,7 @@ First arrange a single final state distinct from the initial state. New boundary
 Convert to a complete GTG. Let $r_{pq}$ denote the current label from $q_p$ to $q_q$. To eliminate an interior state $q_k$, update **every** pair of surviving states, including their self-loops:
 
 $$
-r'_{pq} = r_{pq} + r_{pk}(r_{kk})^{*}r_{kq},
+r_{pq}^{\prime} = r_{pq} + r_{pk}(r_{kk})^{\ast}r_{kq},
 \qquad p,q \ne k.
 $$
 
@@ -278,7 +278,7 @@ The first term preserves routes that avoid $q_k$; the second enters it, loops th
 For a remaining two-state GTG with distinct initial state $q_i$ and sole final state $q_j$, the general expression is
 
 $$
-r = (r_{ii})^{*}r_{ij}\left(r_{jj} + r_{ji}(r_{ii})^{*}r_{ij}\right)^{*}.
+r = (r_{ii})^{\ast}r_{ij}\left(r_{jj} + r_{ji}(r_{ii})^{\ast}r_{ij}\right)^{\ast}.
 $$
 
 It allows initial loops, the first move to the final state, then any number of final-state loops or excursions back through the initial state. **Do not just read $r_{ij}$** unless the boundary construction ensures no incoming edges to the initial state and no outgoing edges from the final state; in that special arrangement the other terms simplify away.
@@ -306,7 +306,7 @@ An automaton tracks which situation remains; a regular grammar tracks which vari
 
 ### 6.1 Right-Linear, Left-Linear, and Merely Linear
 
-> **Definition (Right-Linear Grammar).** Every production has form $A \to xB$ or $A \to x$, with $A,B \in V$ and $x \in T^{*}$. A remaining variable must be at the right end.
+> **Definition (Right-Linear Grammar).** Every production has form $A \to xB$ or $A \to x$, with $A,B \in V$ and $x \in T^{\ast}$. A remaining variable must be at the right end.
 
 > **Definition (Left-Linear Grammar).** Every production has form $A \to Bx$ or $A \to x$, with the same restrictions on $A,B,x$. A remaining variable must be at the left end.
 
@@ -338,11 +338,11 @@ Use one state for each grammar variable, start at $S$, and add a fresh sole fina
 Expand a multi-symbol terminal block into a chain of one-symbol edges with fresh intermediate states. Other productions may supply other routes with the same input label, so the endpoint condition uses set membership, not equality with a single state:
 
 $$
-A \to xB \quad\Longrightarrow\quad B \in \delta^{*}(A, x),
+A \to xB \quad\Longrightarrow\quad B \in \delta^{\ast}(A, x),
 $$
 
 $$
-A \to x \quad\Longrightarrow\quad q_f \in \delta^{*}(A, x).
+A \to x \quad\Longrightarrow\quad q_f \in \delta^{\ast}(A, x).
 $$
 
 A derivation accumulates a terminal prefix while its rightmost variable identifies the next state. Finishing with a terminal-only rule corresponds to reaching $q_f$. This correspondence works in both directions: generated strings are accepted, and accepting routes determine derivations. Therefore, right-linear grammars generate regular languages.
@@ -403,7 +403,7 @@ All four describe exactly the same family of languages. Their descriptions need 
 |---|---|
 | $2^Q$ | All subsets of the finite state set |
 | $\lambda$-transition | Changes state without consuming input |
-| $\delta^{*}(q,w)$ for an NFA | Set of endpoints of all walks labeled $w$ |
+| $\delta^{\ast}(q,w)$ for an NFA | Set of endpoints of all walks labeled $w$ |
 | $E(S)$ | States reachable from $S$ by zero or more $\lambda$-moves |
 | NFA acceptance | At least one final endpoint after the complete input |
 | subset construction | DFA states track reachable sets of NFA states |
@@ -413,7 +413,7 @@ All four describe exactly the same family of languages. Their descriptions need 
 | $p \sim q$ | Every continuation has the same acceptance result |
 | minimization | Remove inaccessible states; merge indistinguishable classes |
 | $L(r)$ | Language denoted by regular expression $r$ |
-| $+$, concatenation, $^{*}$ | Union, sequence, zero-or-more repetition |
+| $+$, concatenation, $^{\ast}$ | Union, sequence, zero-or-more repetition |
 | precedence | Star before concatenation before union |
 | $\varnothing$ vs. $\lambda$ | No strings vs. the empty string only |
 | GTG | Transition graph with regular-expression edge labels |

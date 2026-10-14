@@ -44,21 +44,21 @@ A nonfinal trap permanently rejects; a final trap permanently accepts every cont
 
 ### 1.2 Extended Transition Function
 
-> **Definition (Extended Transition Function).** The extended transition function $\delta^{*} : Q \times \Sigma^{*} \to Q$ gives the state reached after reading a whole string. It is defined recursively by
+> **Definition (Extended Transition Function).** The extended transition function $\delta^{\ast} : Q \times \Sigma^{\ast} \to Q$ gives the state reached after reading a whole string. It is defined recursively by
 
 $$
-\delta^{*}(q, \lambda) = q,
+\delta^{\ast}(q, \lambda) = q,
 $$
 
 $$
-\delta^{*}(q, wa) = \delta(\delta^{*}(q, w), a),
+\delta^{\ast}(q, wa) = \delta(\delta^{\ast}(q, w), a),
 $$
 
-> for every $q \in Q$, $w \in \Sigma^{*}$, and $a \in \Sigma$.
+> for every $q \in Q$, $w \in \Sigma^{\ast}$, and $a \in \Sigma$.
 
 The base case says that reading no input leaves the automaton in its current state. The recursive case processes the final symbol after the prefix $w$.
 
-> **Theorem (Walk Interpretation).** For a nonempty string $w$, $\delta^{*}(p, w) = q$ exactly when the transition graph has a walk from $p$ to $q$ labeled $w$.
+> **Theorem (Walk Interpretation).** For a nonempty string $w$, $\delta^{\ast}(p, w) = q$ exactly when the transition graph has a walk from $p$ to $q$ labeled $w$.
 
 Concatenate the edge labels in traversal order to obtain the walk's label. States and edges may repeat; a walk need not be a simple path. For $\lambda$, the zero-edge walk leaves the state unchanged. The recursive transition rule and this graph interpretation agree by induction on input length.
 
@@ -69,13 +69,13 @@ Concatenate the edge labels in traversal order to obtain the walk's label. State
 > **Definition (Language Accepted by a DFA).** The language accepted by $M = (Q, \Sigma, \delta, q_0, F)$ is
 
 $$
-L(M) = \lbrace w \in \Sigma^{*} : \delta^{*}(q_0, w) \in F \rbrace.
+L(M) = \lbrace w \in \Sigma^{\ast} : \delta^{\ast}(q_0, w) \in F \rbrace.
 $$
 
-Its complement with respect to $\Sigma^{*}$ is
+Its complement with respect to $\Sigma^{\ast}$ is
 
 $$
-\overline{L(M)} = \lbrace w \in \Sigma^{*} : \delta^{*}(q_0, w) \notin F \rbrace.
+\overline{L(M)} = \lbrace w \in \Sigma^{\ast} : \delta^{\ast}(q_0, w) \notin F \rbrace.
 $$
 
 > **Definition (Regular Language).** A language $L$ is *regular* if and only if there is a DFA $M$ such that $L = L(M)$.
@@ -114,11 +114,11 @@ To establish regularity, construct an accepter and explain both directions: ever
 | trap state | loops to itself on every input symbol; may be final or nonfinal |
 | $q_0$ | initial state |
 | $F$ | set of final (accepting) states |
-| $\delta^{*} : Q \times \Sigma^{*} \to Q$ | extended transition function for whole strings |
-| $\delta^{*}(q, \lambda) = q$ | no input leaves the current state unchanged |
+| $\delta^{\ast} : Q \times \Sigma^{\ast} \to Q$ | extended transition function for whole strings |
+| $\delta^{\ast}(q, \lambda) = q$ | no input leaves the current state unchanged |
 | walk labeled $w$ | edge labels concatenate to $w$; repetition is allowed |
 | $L(M)$ | strings that leave $M$ in a final state |
 | acceptance of $\lambda$ | exactly when $q_0 \in F$ |
 | state meaning | finite information retained about the prefix read so far |
 | regular language | language accepted by some DFA |
-| $\overline{L}$ | complement relative to $\Sigma^{*}$ |
+| $\overline{L}$ | complement relative to $\Sigma^{\ast}$ |

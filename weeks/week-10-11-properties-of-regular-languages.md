@@ -12,7 +12,7 @@
 
 For regular languages, a closure proof explains how to combine or modify finite automata or regular expressions. Showing that one particular result is regular is not enough: the construction must work for every allowed input language.
 
-Unless another alphabet is specified, set operations use languages over the same alphabet $\Sigma$, and complement is relative to $\Sigma^{*}$.
+Unless another alphabet is specified, set operations use languages over the same alphabet $\Sigma$, and complement is relative to $\Sigma^{\ast}$.
 
 ---
 
@@ -37,13 +37,13 @@ L(r_1+r_2) = L_1 \cup L_2,
 \qquad
 L(r_1r_2) = L_1L_2,
 \qquad
-L(r_1^{*}) = L_1^{*}.
+L(r_1^{\ast}) = L_1^{\ast}.
 $$
 
 These results follow directly from the definition of regular expressions. Positive closure also preserves regularity because it is concatenation with star:
 
 $$
-L^+ = LL^{*}.
+L^+ = LL^{\ast}.
 $$
 
 ### 2.2 Complement
@@ -81,9 +81,9 @@ $$
 After reading a string $w$, the pair records the state reached by each machine:
 
 $$
-\delta^{*}((s_1,s_2),w)
+\delta^{\ast}((s_1,s_2),w)
 =
-(\delta_1^{*}(s_1,w),\delta_2^{*}(s_2,w)).
+(\delta_1^{\ast}(s_1,w),\delta_2^{\ast}(s_2,w)).
 $$
 
 Only the final-state condition changes with the desired operation:
@@ -143,7 +143,7 @@ A homomorphism consistently replaces each input symbol with a fixed output strin
 > **Definition (Homomorphism).** For alphabets $\Sigma$ and $\Gamma$, a homomorphism starts with a symbol mapping
 
 $$
-h:\Sigma\to\Gamma^{*}.
+h:\Sigma\to\Gamma^{\ast}.
 $$
 
 Extend the mapping to strings by concatenating the images in the original order:
@@ -175,7 +175,7 @@ Right quotient removes a qualifying suffix. It is a language operation, not nume
 $$
 L_1/L_2
 =
-\lbrace x\in\Sigma^{*}:xy\in L_1\text{ for some }y\in L_2 \rbrace.
+\lbrace x\in\Sigma^{\ast}:xy\in L_1\text{ for some }y\in L_2 \rbrace.
 $$
 
 A prefix $x$ qualifies when **at least one** suffix from $L_2$ completes it into a string of $L_1$. Different prefixes may use different suffixes. The suffix need not have a fixed length.
@@ -190,7 +190,7 @@ $$
 F'
 =
 \lbrace q\in Q:
-\delta^{*}(q,y)\in F\text{ for some }y\in L_2
+\delta^{\ast}(q,y)\in F\text{ for some }y\in L_2
 \rbrace.
 $$
 
@@ -204,9 +204,9 @@ A state becomes final if some suffix from $L_2$ can take it to an old final stat
 The resulting DFA accepts $x$ precisely when its reached state has a qualifying continuation. The connection between prefix and suffix processing is
 
 $$
-\delta^{*}(q_0,xy)
+\delta^{\ast}(q_0,xy)
 =
-\delta^{*}(\delta^{*}(q_0,x),y).
+\delta^{\ast}(\delta^{\ast}(q_0,x),y).
 $$
 
 If $\lambda\in L_2$, an old accepting state qualifies without reading any additional symbols. If $L_2$ is empty, no state qualifies and the quotient is empty.

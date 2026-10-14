@@ -31,10 +31,10 @@ $$
 **2. Set-builder notation.** Describe a property that exactly the members satisfy:
 
 $$
-S = \lbrace \, i : i > 0,\ i \text{ is even}\,\rbrace
+S = \lbrace \thinspace i : i > 0,\ i \text{ is even}\thinspace \rbrace
 $$
 
-read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\lbrace \, x : P(x)\,\rbrace$ — "all $x$ with property $P$."
+read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\lbrace \thinspace x : P(x)\thinspace \rbrace$ — "all $x$ with property $P$."
 
 **3. Venn diagrams.** Draw the universal set as a rectangle and each set as a closed region; overlaps show intersection. Useful for visualizing subset/union/complement relationships.
 
@@ -79,13 +79,13 @@ so $|S| = 3$ and $|\mathcal{P}(S)| = 8 = 2^3$.
 > **Definition (Cartesian Product).** For sets $S_1, S_2$, the *Cartesian product* is the set of all ordered pairs:
 
 $$
-S_1 \times S_2 = \lbrace \,(x, y) : x \in S_1,\ y \in S_2\,\rbrace.
+S_1 \times S_2 = \lbrace \thinspace (x, y) : x \in S_1,\ y \in S_2\thinspace \rbrace.
 $$
 
 Order matters in a pair: $(4, 2)$ and $(2, 4)$ are different. For $n$ sets:
 
 $$
-S_1 \times S_2 \times \cdots \times S_n = \lbrace \,(x_1, x_2, \dots, x_n) : x_i \in S_i\,\rbrace.
+S_1 \times S_2 \times \cdots \times S_n = \lbrace \thinspace (x_1, x_2, \dots, x_n) : x_i \in S_i\thinspace \rbrace.
 $$
 
 **Example.** With $S_1 = \lbrace 2, 4\rbrace$ and $S_2 = \lbrace 2, 3, 5, 6\rbrace$:
@@ -102,14 +102,14 @@ For sets $S_1, S_2$:
 
 | Operation | Definition |
 |---|---|
-| **Union** | $S_1 \cup S_2 = \lbrace \, x : x \in S_1 \text{ or } x \in S_2\,\rbrace$ |
-| **Intersection** | $S_1 \cap S_2 = \lbrace \, x : x \in S_1 \text{ and } x \in S_2\,\rbrace$ |
-| **Difference** | $S_1 - S_2 = \lbrace \, x : x \in S_1 \text{ and } x \notin S_2\,\rbrace$ |
+| **Union** | $S_1 \cup S_2 = \lbrace \thinspace x : x \in S_1 \text{ or } x \in S_2\thinspace \rbrace$ |
+| **Intersection** | $S_1 \cap S_2 = \lbrace \thinspace x : x \in S_1 \text{ and } x \in S_2\thinspace \rbrace$ |
+| **Difference** | $S_1 - S_2 = \lbrace \thinspace x : x \in S_1 \text{ and } x \notin S_2\thinspace \rbrace$ |
 
 > **Definition (Complement).** Given a universal set $U$ of all possible elements under discussion, the *complement* of $S$ is
 
 $$
-\overline{S} = U - S = \lbrace \, x : x \in U \text{ and } x \notin S\,\rbrace.
+\overline{S} = U - S = \lbrace \thinspace x : x \in U \text{ and } x \notin S\thinspace \rbrace.
 $$
 
 **Basic identities with $\varnothing$:**
@@ -144,7 +144,7 @@ $$
 f : S_1 \to S_2
 $$
 
-> where $S_1$ is the **domain**, $S_2$ is the **codomain** (target), and $f(a)$ is the output assigned to input $a$. The *range* (or image) of $f$ is $\lbrace \, f(a) : a \in S_1\,\rbrace \subseteq S_2$.
+> where $S_1$ is the **domain**, $S_2$ is the **codomain** (target), and $f(a)$ is the output assigned to input $a$. The *range* (or image) of $f$ is $\lbrace \thinspace f(a) : a \in S_1\thinspace \rbrace \subseteq S_2$.
 
 - If the domain is all of $S_1$, $f$ is a **total function** on $S_1$; otherwise it is a **partial function**.
 - In CS we often study functions whose inputs/outputs are positive integers and care only about behavior as the argument grows large — this motivates *order-of-magnitude* notation.
@@ -171,7 +171,7 @@ Let $f(n)$ and $g(n)$ be functions on a subset of the positive integers. All sta
 > **Definition (Big-O, upper bound).**
 
 $$
-f(n) = O(g(n)) \iff \exists\, c > 0,\ \exists\, n_0 : (\forall n \ge n_0)\ f(n) \le c\,|g(n)|.
+f(n) = O(g(n)) \iff \exists\thinspace c > 0,\ \exists\thinspace n_0 : (\forall n \ge n_0)\ f(n) \le c\thinspace |g(n)|.
 $$
 
 > *Interpretation:* after some point $n_0$, a constant multiple of $g$ stays **above** $f$. Big-O is a ceiling.
@@ -179,7 +179,7 @@ $$
 > **Definition (Big-Ω, lower bound).**
 
 $$
-f(n) = \Omega(g(n)) \iff \exists\, c > 0,\ \exists\, n_0 : (\forall n \ge n_0)\ f(n) \ge c\,|g(n)|.
+f(n) = \Omega(g(n)) \iff \exists\thinspace c > 0,\ \exists\thinspace n_0 : (\forall n \ge n_0)\ f(n) \ge c\thinspace |g(n)|.
 $$
 
 > *Interpretation:* after some point $n_0$, $f$ stays **above** a constant multiple of $g$. Big-Ω is a floor.
@@ -187,7 +187,7 @@ $$
 > **Definition (Big-Θ, tight bound).**
 
 $$
-f(n) = \Theta(g(n)) \iff \exists\, c_1 > 0,\ c_2 > 0,\ n_0 : (\forall n \ge n_0)\ c_1|g(n)| \le f(n) \le c_2|g(n)|.
+f(n) = \Theta(g(n)) \iff \exists\thinspace c_1 > 0,\ c_2 > 0,\ n_0 : (\forall n \ge n_0)\ c_1|g(n)| \le f(n) \le c_2|g(n)|.
 $$
 
 > *Interpretation:* $f$ is trapped between two constant multiples of $g$. Big-Θ is a sandwich.
@@ -278,7 +278,7 @@ Induction matches recursion: the base case supplies a starting value, and the in
 | $A = B$ | iff $A \subseteq B$ and $B \subseteq A$ |
 | $A \cup B$, $A \cap B$, $A - B$ | union, intersection, difference |
 | $\overline{A}$ | complement (relative to universal set $U$) |
-| $\mathcal{P}(S)$ or $2^S$ | powerset; $|\mathcal{P}(S)| = 2^{|S|}$ |
+| $\mathcal{P}(S)$ or $2^S$ | powerset; $\vert \mathcal{P}(S)\vert = 2^{\vert S\vert}$ |
 | $A \times B$ | Cartesian product of ordered pairs |
 | $f : A \to B$ | function from domain $A$ to codomain $B$ |
 | $O(g)$, $\Omega(g)$, $\Theta(g)$ | upper bound / lower bound / tight bound |
