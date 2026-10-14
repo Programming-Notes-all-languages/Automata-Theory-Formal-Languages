@@ -412,6 +412,93 @@ $$
 \boxed{R = \left((a+bb)(ab)^{\ast}b\right)^{\ast}}.
 $$
 
+### 5.6 Exam Practice — Difference Modulo 3: Language to DFA to Expression
+
+**Language condition (practice problem 3):**
+
+$$
+(n_a(w)-n_b(w)) \bmod 3 = 2.
+$$
+
+<details>
+<summary>Example — Practice problem 3: modulo-difference regular expression</summary>
+
+**Source:** the supplied exam-practice language labeled 3, not a textbook exercise or submitted assignment. The image does not explicitly give an alphabet; assume inputs `a` and `b`, as in the discussion. The counts $n_a(w)$ and $n_b(w)$ are the numbers of those symbols in $w$.
+
+**Question.** Construct an automaton for the language condition above, then find a regular expression for the same language.
+
+<details>
+<summary>Solution</summary>
+
+**1. Decide what the DFA must remember.** Do not begin by guessing arrows. The exact counts can grow without bound, but only the difference's remainder matters. There are three possible remainders, so use $q_0$, $q_1$, and $q_2$ to remember remainders 0, 1, and 2. A state records the situation after the input read so far, not an individual letter or an exact count.
+
+Before any input, the difference is zero, so start at $q_0$. The language requires remainder 2, so only $q_2$ is accepting. Reading `a` adds 1 to the difference; reading `b` subtracts 1. Wrap around modulo 3, including negative differences: reading `b` from remainder 0 reaches remainder 2.
+
+| State | Remembered remainder | On `a` → | On `b` → | Accepting? |
+|---|---|---|---|---|
+| $q_0$ — start | 0 | $q_1$ | $q_2$ | No |
+| $q_1$ | 1 | $q_2$ | $q_0$ | No |
+| $q_2$ | 2 | $q_0$ | $q_1$ | Yes |
+
+![Modulo-3 difference DFA: q0 is start; a cycles q0 to q1 to accepting q2 to q0, and b cycles in the reverse direction.](../assets/mod3-difference-practice-3.svg)
+
+The state invariant is that $q_i$ means the difference has remainder $i$. It holds initially and is preserved by the add/subtract update, so the DFA accepts exactly the language condition.
+
+**2. Eliminate the middle state.** Remove $q_1$ while preserving paths through it. Since $q_1$ has no self-loop, each newly combined route simply reads two symbols:
+
+| Remaining route | Label | Why |
+|---|---|---|
+| $q_0$ to $q_0$ | $ab$ | `a` to the middle, then `b` back |
+| $q_0$ to $q_2$ | $b+aa$ | Direct `b`, or `aa` through the middle |
+| $q_2$ to $q_0$ | $a+bb$ | Direct `a`, or `bb` through the middle |
+| $q_2$ to $q_2$ | $ba$ | `b` to the middle, then `a` back |
+
+Here $+$ means OR, not one-or-more repetition. The reduced graph has expression-labeled edges; it is a generalized transition graph, not an ordinary one-symbol DFA.
+
+**3. Describe a complete return to the start.** One return to $q_0$ either reads `ab`, or visits $q_2$ by `b` or `aa`, repeats the `ba` loop there zero or more times, and returns by `a` or `bb`. Call this complete-return pattern $A$.
+
+**4. Describe the final accepting segment.** After any number of complete returns to $q_0$, take `b` or `aa` to reach $q_2$. Repeat its `ba` loop as desired, but do not return to $q_0$ again. Call this final segment $B$.
+
+**5. Combine them.** Repeat complete-return segments zero or more times, then take one required final accepting segment. This gives $A^{\ast}B$, expanded below.
+
+**Why this is exact:** cut a path in the reduced graph at each return to $q_0$. Each complete return has pattern $A$; the last segment ends at $q_2$ and has pattern $B$. Conversely, concatenating any such segments follows valid paths and ends accepting. The state-elimination step preserves the original DFA's language.
+
+**Important:** unlike practice problem 2, the start state is not accepting. Do not put a star around the entire answer and accidentally include the empty string. The final segment is required.
+
+| String | Difference | Remainder | Result |
+|---|---|---|---|
+| $\lambda$ | 0 | 0 | Reject |
+| `a` | 1 | 1 | Reject |
+| `b` | -1 | 2 | Accept |
+| `aa` | 2 | 2 | Accept |
+| `ab` | 0 | 0 | Reject |
+| `aab` | 1 | 1 | Reject |
+| `bba` | -1 | 2 | Accept |
+| `bbbb` | -4 | 2 | Accept |
+| `aaba` | 2 | 2 | Accept |
+
+</details>
+
+</details>
+
+**Complete-return pattern (practice problem 3):**
+
+$$
+A = ab + (b+aa)(ba)^{\ast}(a+bb).
+$$
+
+**Final accepting segment:**
+
+$$
+B = (b+aa)(ba)^{\ast}.
+$$
+
+**Regular expression:**
+
+$$
+\boxed{R_3 = A^{\ast}B = \left(ab+(b+aa)(ba)^{\ast}(a+bb)\right)^{\ast}(b+aa)(ba)^{\ast}}.
+$$
+
 ---
 
 ## 6. Regular Grammars — Section 3.3

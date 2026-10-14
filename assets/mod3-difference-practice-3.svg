@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Practice problem 3: difference modulo 3 DFA</title>
+  <desc id="desc">Three states remember the number of a symbols minus b symbols modulo 3. q0 is start and nonaccepting. q1 is nonaccepting. q2 is accepting. Reading a cycles q0 to q1 to q2 to q0; reading b cycles q0 to q2 to q1 to q0.</desc>
+  <style>
+    svg { color:#172033; }
+    .background { fill:#ffffff; }
+    text { font-family:system-ui,sans-serif; fill:currentColor; }
+    .edge { fill:none; stroke:currentColor; stroke-width:2.5; }
+    .state { fill:#eaf2ff; stroke:currentColor; stroke-width:2.5; }
+    .accepting { fill:#e8f6eb; }
+    .inner { fill:none; }
+    .note { fill:#5b6776; }
+    @media (prefers-color-scheme:dark) {
+      svg { color:#edf2f7; }
+      .background { fill:#0d1117; }
+      .state { fill:#17263b; }
+      .accepting { fill:#163327; }
+      .inner { fill:none; }
+      .note { fill:#b0bdc9; }
+    }
+  </style>
+  <rect class="background" width="900" height="430" rx="10"/>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/></marker></defs>
+  <text x="22" y="31" font-size="23" font-weight="600">Practice 3: difference modulo 3</text>
+  <path class="edge" d="M 25 140 L 84 140" marker-end="url(#arrow)"/>
+  <text x="28" y="125" font-size="16">start</text>
+  <path class="edge" data-from="q0" data-symbol="a" data-to="q1" d="M 177 113 Q 292 53 408 113" marker-end="url(#arrow)"/>
+  <text x="292" y="72" text-anchor="middle" font-size="23">a</text>
+  <path class="edge" data-from="q1" data-symbol="b" data-to="q0" d="M 408 167 Q 292 219 177 167" marker-end="url(#arrow)"/>
+  <text x="292" y="218" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="q1" data-symbol="a" data-to="q2" d="M 492 113 Q 608 53 723 113" marker-end="url(#arrow)"/>
+  <text x="608" y="72" text-anchor="middle" font-size="23">a</text>
+  <path class="edge" data-from="q2" data-symbol="b" data-to="q1" d="M 723 167 Q 608 219 492 167" marker-end="url(#arrow)"/>
+  <text x="608" y="218" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="q0" data-symbol="b" data-to="q2" d="M 155 186 C 310 315 590 315 745 186" marker-end="url(#arrow)"/>
+  <text x="450" y="264" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="q2" data-symbol="a" data-to="q0" d="M 735 180 C 610 405 290 405 165 180" marker-end="url(#arrow)"/>
+  <text x="450" y="336" text-anchor="middle" font-size="23">a</text>
+  <circle class="state" data-state="q0" data-start="true" cx="135" cy="140" r="50"/>
+  <text x="135" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">0</tspan></text>
+  <text class="note" x="135" y="245" text-anchor="middle" font-size="17">remainder 0</text>
+  <circle class="state" data-state="q1" cx="450" cy="140" r="50"/>
+  <text x="450" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">1</tspan></text>
+  <text class="note" x="450" y="220" text-anchor="middle" font-size="17">remainder 1</text>
+  <circle class="state accepting" data-state="q2" data-accepting="true" cx="765" cy="140" r="50"/>
+  <circle class="state inner" cx="765" cy="140" r="42"/>
+  <text x="765" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">2</tspan></text>
+  <text class="note" x="765" y="245" text-anchor="middle" font-size="17">remainder 2</text>
+  <text class="note" x="22" y="405" font-size="17">Remember the remainder, not the exact counts. Accept only in q2.</text>
+</svg>
