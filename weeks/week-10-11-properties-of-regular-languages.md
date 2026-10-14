@@ -81,8 +81,7 @@ $$
 After reading a string $w$, the pair records the state reached by each machine:
 
 $$
-\delta^{\ast}((s_1,s_2),w)
-=
+\delta^{\ast}((s_1,s_2),w) =
 (\delta_1^{\ast}(s_1,w),\delta_2^{\ast}(s_2,w)).
 $$
 
@@ -101,8 +100,7 @@ The full product has $|Q_1||Q_2|$ states, although some may be unreachable. The 
 Intersection can also be expressed using only union and complement:
 
 $$
-L_1\cap L_2
-=
+L_1\cap L_2 =
 \overline{\overline{L_1}\cup\overline{L_2}}.
 $$
 
@@ -173,8 +171,7 @@ Right quotient removes a qualifying suffix. It is a language operation, not nume
 > **Definition (Right Quotient).** For languages over the same alphabet,
 
 $$
-L_1/L_2
-=
+L_1/L_2 =
 \lbrace x\in\Sigma^{\ast}:xy\in L_1\text{ for some }y\in L_2 \rbrace.
 $$
 
@@ -187,8 +184,7 @@ A prefix $x$ qualifies when **at least one** suffix from $L_2$ completes it into
 Start with a DFA for $L_1$. Retain its start state, transitions, and state set. Change only which states accept:
 
 $$
-F'
-=
+F' =
 \lbrace q\in Q:
 \delta^{\ast}(q,y)\in F\text{ for some }y\in L_2
 \rbrace.
@@ -204,8 +200,7 @@ A state becomes final if some suffix from $L_2$ can take it to an old final stat
 The resulting DFA accepts $x$ precisely when its reached state has a qualifying continuation. The connection between prefix and suffix processing is
 
 $$
-\delta^{\ast}(q_0,xy)
-=
+\delta^{\ast}(q_0,xy) =
 \delta^{\ast}(\delta^{\ast}(q_0,x),y).
 $$
 

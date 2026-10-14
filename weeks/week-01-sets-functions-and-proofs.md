@@ -34,7 +34,7 @@ $$
 S = \lbrace \thinspace i : i > 0,\ i \text{ is even}\thinspace \rbrace
 $$
 
-read as "$S$ is the set of all $i$ such that $i > 0$ and $i$ is even" (with $i$ understood to range over integers). The general form is $\lbrace \thinspace x : P(x)\thinspace \rbrace$ — "all $x$ with property $P$."
+In words, $S$ is the set of all $i$ such that $i > 0$ and $i$ is even (with $i$ understood to range over integers). The general form is $\lbrace \thinspace x : P(x)\thinspace \rbrace$ — "all $x$ with property $P$."
 
 **3. Venn diagrams.** Draw the universal set as a rectangle and each set as a closed region; overlaps show intersection. Useful for visualizing subset/union/complement relationships.
 
