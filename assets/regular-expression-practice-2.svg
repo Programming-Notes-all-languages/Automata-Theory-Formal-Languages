@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340" role="img" aria-labelledby="title desc">
+  <title id="title">Practice problem 2: find the regular expression</title>
+  <desc id="desc">A three-state automaton. The left state q0 is the start and only accepting state. q0 goes to middle q1 on a and right q2 on b. q1 goes to q2 on a and q0 on b. q2 goes to q1 on b; no a transition is shown. State names are added for explanation.</desc>
+  <style>
+    svg { color:#172033; }
+    .background { fill:#ffffff; }
+    text { font-family:system-ui,sans-serif; fill:currentColor; }
+    .edge { fill:none; stroke:currentColor; stroke-width:2.5; }
+    .state { fill:#eaf2ff; stroke:currentColor; stroke-width:2.5; }
+    .accepting { fill:#e8f6eb; }
+    .inner { fill:none; }
+    .note { fill:#5b6776; }
+    @media (prefers-color-scheme:dark) {
+      svg { color:#edf2f7; }
+      .background { fill:#0d1117; }
+      .state { fill:#17263b; }
+      .accepting { fill:#163327; }
+      .inner { fill:none; }
+      .note { fill:#b0bdc9; }
+    }
+  </style>
+  <rect class="background" width="900" height="340" rx="10"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <text x="22" y="31" font-size="23" font-weight="600">Practice 2: find a regular expression</text>
+  <path class="edge" d="M 25 140 L 84 140" marker-end="url(#arrow)"/>
+  <text x="28" y="125" font-size="16">start</text>
+  <path class="edge" data-from="q0" data-symbol="a" data-to="q1" d="M 177 113 Q 292 53 408 113" marker-end="url(#arrow)"/>
+  <text x="292" y="72" text-anchor="middle" font-size="23">a</text>
+  <path class="edge" data-from="q1" data-symbol="b" data-to="q0" d="M 408 167 Q 292 219 177 167" marker-end="url(#arrow)"/>
+  <text x="292" y="218" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="q1" data-symbol="a" data-to="q2" d="M 492 113 Q 608 53 723 113" marker-end="url(#arrow)"/>
+  <text x="608" y="72" text-anchor="middle" font-size="23">a</text>
+  <path class="edge" data-from="q2" data-symbol="b" data-to="q1" d="M 723 167 Q 608 219 492 167" marker-end="url(#arrow)"/>
+  <text x="608" y="218" text-anchor="middle" font-size="23">b</text>
+  <path class="edge" data-from="q0" data-symbol="b" data-to="q2" d="M 165 180 C 300 328 600 328 735 180" marker-end="url(#arrow)"/>
+  <text x="450" y="281" text-anchor="middle" font-size="23">b</text>
+  <circle class="state accepting" data-state="q0" data-start="true" data-accepting="true" cx="135" cy="140" r="50"/>
+  <circle class="state inner" cx="135" cy="140" r="42"/>
+  <text x="135" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">0</tspan></text>
+  <circle class="state" data-state="q1" cx="450" cy="140" r="50"/>
+  <text x="450" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">1</tspan></text>
+  <circle class="state" data-state="q2" cx="765" cy="140" r="50"/>
+  <text x="765" y="149" text-anchor="middle" font-size="29">q<tspan baseline-shift="sub" font-size="19">2</tspan></text>
+  <text class="note" x="22" y="327" font-size="16">State names added for explanation; no a-transition is shown from q2.</text>
+</svg>

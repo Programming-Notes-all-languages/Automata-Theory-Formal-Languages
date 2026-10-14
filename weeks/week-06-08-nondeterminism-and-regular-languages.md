@@ -336,6 +336,78 @@ The DFA transition table supplies the recognition rules; a driver reads input an
 
 **Practical syntax caveat:** Linz's mathematical expressions are not a specification of every editor or programming-language regex engine. Only features expressible by finite union, concatenation, and star are covered by these equivalences. Do not assume that every engine-specific extension is regular, or that its punctuation has the book's meaning. Also distinguish whole-string language membership from searching for a matching substring inside a larger text.
 
+### 5.5 Exam Practice — Find a Regular Expression from Return Trips
+
+<details>
+<summary>Example — Practice problem 2: find the regular expression</summary>
+
+**Source:** the supplied exam-practice image labeled "2. Find the regular expression," not a textbook exercise or submitted assignment. The original states are unlabeled; call the left, middle, and right states $q_0$, $q_1$, and $q_2$ for this explanation.
+
+**Question.** Find a regular expression for the language accepted by this automaton. The left state $q_0$ is both the start and the only accepting state.
+
+![Practice automaton: accepting start q0 goes to q1 on a and q2 on b; q1 goes to q2 on a and q0 on b; q2 goes to q1 on b.](../assets/regular-expression-practice-2.svg)
+
+| State | On `a` → | On `b` → | Accepting? |
+|---|---|---|---|
+| $q_0$ — start | $q_1$ | $q_2$ | Yes |
+| $q_1$ | $q_2$ | $q_0$ | No |
+| $q_2$ | No transition | $q_1$ | No |
+
+The long bottom `b` arrow points from $q_0$ to $q_2$. No `a` transition is shown from $q_2$; a route trying to read `a` there gets stuck and rejects.
+
+<details>
+<summary>Solution</summary>
+
+**Idea:** describe one complete trip away from the accepting state and back, then allow that trip to repeat. Here $+$ means union (OR), and star means zero or more repetitions.
+
+**1. Reach the middle state without returning to the start.** There are two routes:
+
+| Route | Input read |
+|---|---|
+| $q_0$ directly to $q_1$ | `a` |
+| $q_0$ to $q_2$, then to $q_1$ | `bb` |
+
+These alternatives give $a+bb$.
+
+**2. Repeat between the middle and right states.** From the middle, read `a` to go right and `b` to return:
+
+$$
+q_1 \xrightarrow{a} q_2 \xrightarrow{b} q_1.
+$$
+
+This reads `ab`. Repeat that loop zero or more times, giving $(ab)^{\ast}$.
+
+**3. Return to the accepting state.** From $q_1$, one final `b` returns to $q_0$. Therefore, one complete return trip reads
+
+$$
+(a+bb)(ab)^{\ast}b.
+$$
+
+**4. Repeat whole return trips.** After returning to $q_0$, another trip can begin. Zero trips are also allowed because the start state is accepting, so the empty string $\lambda$ must be included.
+
+$$
+\boxed{R = \left((a+bb)(ab)^{\ast}b\right)^{\ast}}.
+$$
+
+**Why this is exact:** split any nonempty accepting walk at every return to $q_0$. Each piece first reaches $q_1$ by `a` or `bb`, makes some number of `ab` loops, and finishes with `b`. Conversely, every such piece returns to $q_0$, so any concatenation of these pieces is accepted.
+
+**State-elimination view:** removing $q_2$ leaves a forward edge from $q_0$ to $q_1$ labeled $a+bb$, an `ab` self-loop at $q_1$, and a `b` edge back to $q_0$. Removing $q_1$ then leaves the complete-return-trip self-loop at the accepting start state; its star is the answer.
+
+| String | Result | Reason |
+|---|---|---|
+| $\lambda$ | Accept | Zero trips; already at the accepting start |
+| `ab` | Accept | Directly to the middle, then back |
+| `bbb` | Accept | Through the right and middle states, then back |
+| `aabb` | Accept | Direct start, one `ab` loop, final `b` |
+| `bbabb` | Accept | `bb` start, one `ab` loop, final `b` |
+| `abab` | Accept | Two complete `ab` return trips |
+| `a` | Reject | Ends at the nonaccepting middle state |
+| `bb` | Reject | Ends at the nonaccepting middle state |
+
+</details>
+
+</details>
+
 ---
 
 ## 6. Regular Grammars — Section 3.3
