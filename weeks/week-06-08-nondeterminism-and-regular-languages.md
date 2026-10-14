@@ -369,25 +369,11 @@ The long bottom `b` arrow points from $q_0$ to $q_2$. No `a` transition is shown
 
 These alternatives give $a+bb$.
 
-**2. Repeat between the middle and right states.** From the middle, read `a` to go right and `b` to return:
+**2. Repeat between the middle and right states.** From the middle, read `a` to go right and `b` to return. This reads `ab`. Repeat that loop zero or more times, giving $(ab)^{\ast}$.
 
-$$
-q_1 \xrightarrow{a} q_2 \xrightarrow{b} q_1.
-$$
-
-This reads `ab`. Repeat that loop zero or more times, giving $(ab)^{\ast}$.
-
-**3. Return to the accepting state.** From $q_1$, one final `b` returns to $q_0$. Therefore, one complete return trip reads
-
-$$
-(a+bb)(ab)^{\ast}b.
-$$
+**3. Return to the accepting state.** From $q_1$, one final `b` returns to $q_0$. A complete return trip therefore consists of the initial `a` or `bb` choice, zero or more `ab` loops, and a final `b`.
 
 **4. Repeat whole return trips.** After returning to $q_0$, another trip can begin. Zero trips are also allowed because the start state is accepting, so the empty string $\lambda$ must be included.
-
-$$
-\boxed{R = \left((a+bb)(ab)^{\ast}b\right)^{\ast}}.
-$$
 
 **Why this is exact:** split any nonempty accepting walk at every return to $q_0$. Each piece first reaches $q_1$ by `a` or `bb`, makes some number of `ab` loops, and finishes with `b`. Conversely, every such piece returns to $q_0$, so any concatenation of these pieces is accepted.
 
@@ -407,6 +393,24 @@ $$
 </details>
 
 </details>
+
+**Middle/right loop (practice problem 2):**
+
+$$
+q_1 \xrightarrow{a} q_2 \xrightarrow{b} q_1.
+$$
+
+**One complete return trip:**
+
+$$
+(a+bb)(ab)^{\ast}b.
+$$
+
+**Final regular expression:**
+
+$$
+\boxed{R = \left((a+bb)(ab)^{\ast}b\right)^{\ast}}.
+$$
 
 ---
 
