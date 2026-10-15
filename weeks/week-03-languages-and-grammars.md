@@ -158,6 +158,73 @@ The final string is **0011111**. In the last step, the remaining $A$ becomes one
 
 ---
 
+### 2.2 Midterm Practice — Construct a Grammar
+
+**Source:** *Practice Exam 1*, question 3 (5 points), supplied practice material rather than a textbook exercise.
+
+The language in this question is
+
+$$
+L = \lbrace 2^m0^n1^n \mid m,n \ge 0 \rbrace.
+$$
+
+<details>
+<summary>Question 3 — Generate a prefix followed by matched blocks</summary>
+
+Construct a grammar for the language above: any number of leading 2s, followed by equal numbers of 0s and 1s, with all 0s before all 1s. Both counts may be zero.
+
+<details>
+<summary>Solution</summary>
+
+**Split the construction into two jobs.** The exponent $m$ controls the number of leading 2s independently. The repeated exponent $n$ forces the numbers of 0s and 1s to match.
+
+| Job | Production | How it works |
+|---|---|---|
+| Add another leading 2 | $S \to 2S$ | Adds one 2 and keeps the prefix-generating variable. |
+| Finish the prefix | $S \to A$ | Switches to the matching phase; choosing this immediately allows zero 2s. |
+| Add one matched pair | $A \to 0A1$ | Adds one 0 on the left and one 1 on the right. |
+| Finish the matching phase | $A \to \lambda$ | Removes the variable; choosing this immediately allows zero 0s and zero 1s. |
+
+Thus the productions can be abbreviated as:
+
+| Variable | Alternatives |
+|---|---|
+| $S$ | $S \to 2S \mid A$ |
+| $A$ | $A \to 0A1 \mid \lambda$ |
+
+Use start variable $S$, variables $V = \lbrace S,A \rbrace$, and terminals $T = \lbrace 0,1,2 \rbrace$. The symbol $\lambda$ denotes the empty string, not a terminal symbol. The bar between alternatives means **or**, not concatenation.
+
+**Why wrapping matters:** repeated use of the matching rule produces the forms $0A1$, $00A11$, and $000A111$. Each new pair surrounds the remaining variable, keeping every 0 before every 1. It does not produce alternating blocks such as `010101`.
+
+**Example — generate `220011`:**
+
+| Step | Rule applied | Result |
+|---|---|---|
+| Start | — | $S$ |
+| 1 | $S \to 2S$ | $2S$ |
+| 2 | $S \to 2S$ | $22S$ |
+| 3 | $S \to A$ | $22A$ |
+| 4 | $A \to 0A1$ | $220A1$ |
+| 5 | $A \to 0A1$ | $2200A11$ |
+| 6 | $A \to \lambda$ | $220011$ |
+
+**Check the zero-count cases:**
+
+| Counts | Example | How the grammar permits it |
+|---|---|---|
+| $m=0$, $n=2$ | `0011` | Switch to the matching phase without generating a 2. |
+| $m=2$, $n=0$ | `22` | Generate two 2s, switch phases, then remove the variable immediately. |
+| $m=0$, $n=0$ | $\lambda$ | Switch phases immediately, then remove the variable. |
+
+**Why this generates exactly the language:** every terminating derivation first adds some leading 2s, switches phases once, adds matched 0/1 pairs, and removes the remaining variable. No rule returns to the prefix phase, so a 2 cannot appear after a 0 or 1. Conversely, for any allowed $m$ and $n$, apply the prefix rule $m$ times, switch phases, apply the matching rule $n$ times, and finish with the empty-string rule. This generates every required string and no unwanted strings.
+
+**Reusable pattern:** use one variable for an independent prefix, then another variable to add matching symbols on opposite sides.
+
+</details>
+</details>
+
+---
+
 ## 3. Automata
 
 An **automaton** is an abstract computing model that reads input, maintains a finite-state control, and may use temporary storage or produce output. The kind of storage available determines much of the model's computational power.
