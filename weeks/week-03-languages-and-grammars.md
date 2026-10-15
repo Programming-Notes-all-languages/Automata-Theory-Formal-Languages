@@ -118,6 +118,46 @@ $$
 
 ---
 
+### 2.1 Midterm Practice — Tracing a Derivation
+
+**Source:** *Practice Exam 1*, question 1 (2 points), supplied practice material rather than a textbook exercise.
+
+<details>
+<summary>Question 1 — Apply grammar rules in a specified order</summary>
+
+Given the alphabet $\Sigma = \lbrace 0, 1 \rbrace$ and the productions numbered from top to bottom:
+
+| Rule | Production |
+|---|---|
+| 1 | $S \to 0S1$ |
+| 2 | $S \to A$ |
+| 3 | $A \to 1A$ |
+| 4 | $A \to 1$ |
+
+Trace the derivation by applying the rules in the order **1, 1, 2, 3, 3, 4**.
+
+<details>
+<summary>Solution</summary>
+
+Start with $S$. Each application replaces only the matching variable; all surrounding terminal symbols stay unchanged.
+
+| Step | Rule applied | Result |
+|---|---|---|
+| Start | — | $S$ |
+| 1 | $S \to 0S1$ | $0S1$ |
+| 2 | $S \to 0S1$ | $00S11$ |
+| 3 | $S \to A$ | $00A11$ |
+| 4 | $A \to 1A$ | $001A11$ |
+| 5 | $A \to 1A$ | $0011A11$ |
+| 6 | $A \to 1$ | $0011111$ |
+
+The final string is **0011111**. In the last step, the remaining $A$ becomes one more $1$; it does not disappear. No variables remain, so the derivation has reached a terminal string.
+
+</details>
+</details>
+
+---
+
 ## 3. Automata
 
 An **automaton** is an abstract computing model that reads input, maintains a finite-state control, and may use temporary storage or produce output. The kind of storage available determines much of the model's computational power.
