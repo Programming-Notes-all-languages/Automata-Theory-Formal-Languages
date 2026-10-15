@@ -103,6 +103,69 @@ To establish regularity, construct an accepter and explain both directions: ever
 
 ---
 
+### 2.2 Midterm Practice — Define a DFA from Its Diagram
+
+**Source:** *Practice Exam 1*, question 2 (3 points), supplied practice material rather than a textbook exercise.
+
+<details>
+<summary>Question 2 — Define the DFA and give five accepted strings</summary>
+
+Define a DFA for the supplied state diagram. Then list at least five strings of length 5 that it accepts. The diagram's states are $q_0,q_1,q_2,q_3$; its start arrow points to $q_0$, and only $q_3$ has a double circle. The transition table in the solution transcribes every labeled arrow in that diagram.
+
+<details>
+<summary>Solution</summary>
+
+**Define all five components.** A transition table specifies the transition function, but a complete formal definition also identifies the states, alphabet, start state, and accepting states.
+
+| Component | Definition |
+|---|---|
+| States | $Q = \lbrace q_0,q_1,q_2,q_3 \rbrace$ |
+| Input alphabet | $\Sigma = \lbrace 0,1 \rbrace$ |
+| Transition function | $\delta$, defined by the table below |
+| Start state | $q_0$ |
+| Accepting states | $F = \lbrace q_3 \rbrace$ |
+
+Together these specify the DFA $M = (Q,\Sigma,\delta,q_0,F)$.
+
+**Read each table row from the outgoing arrows:** from that state, follow the arrow labeled 0 or 1 to its destination.
+
+| Current state | Read 0 | Read 1 |
+|---|---|---|
+| $q_0$ | $q_1$ | $q_3$ |
+| $q_1$ | $q_1$ | $q_2$ |
+| $q_2$ | $q_3$ | $q_2$ |
+| $q_3$ | $q_3$ | $q_3$ |
+
+**Find accepted strings.** Begin at $q_0$, consume every input symbol, and check whether the final state is $q_3$. Any string beginning with 1 reaches $q_3$ immediately; its loops on both symbols keep every continuation there. Strings beginning with 0 can also reach $q_3$ through $q_1$ and $q_2$.
+
+Five distinct accepted strings of length 5 are:
+
+| String | Why it is accepted |
+|---|---|
+| `10000` | The first 1 reaches the accepting state; the remaining symbols loop there. |
+| `10101` | The first 1 reaches the accepting state; the remaining symbols loop there. |
+| `11111` | The first 1 reaches the accepting state; the remaining symbols loop there. |
+| `01000` | The prefix `010` reaches the accepting state; the remaining zeros loop there. |
+| `00110` | The final 0 moves from $q_2$ into the accepting state. |
+
+For example, trace `01000` one symbol at a time:
+
+| Input consumed | Current state |
+|---|---|
+| None | $q_0$ |
+| `0` | $q_1$ |
+| `01` | $q_2$ |
+| `010` | $q_3$ |
+| `0100` | $q_3$ |
+| `01000` | $q_3$ |
+
+**What to write on the exam:** the five components (using the transition table to define the transition function) and five accepted length-5 strings. Redrawing the supplied diagram or tracing every example is not required by this prompt; the trace above explains how to check your strings.
+
+</details>
+</details>
+
+---
+
 ## Quick Reference
 
 | Term / Symbol | Meaning |
