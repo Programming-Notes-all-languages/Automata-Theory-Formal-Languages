@@ -501,6 +501,158 @@ $$
 
 ---
 
+### 5.7 Exam Practice — Construct a Union DFA Step by Step
+
+**Expression (exercise 6(c)):**
+
+$$
+(abab)^{\ast}+(aaa^{\ast}+b)^{\ast}.
+$$
+
+<details>
+<summary>Example — Exercise 6(c): build the DFA from scratch</summary>
+
+**Source:** the supplied exam-practice image, exercise 6(c), identified as practice rather than assigned work. The expression above is the prompt's expression; the state labels below belong to this construction.
+
+**Question.** Construct a DFA accepting the language of the expression above, over inputs `a` and `b`.
+
+<details>
+<summary>Solution</summary>
+
+**Construction idea:** do not guess all the states at once. After each prefix, identify which language alternatives remain possible and what the machine needs next. Create a state for a new situation; reuse an existing state when its future obligations are the same.
+
+**Read the expression first.** Here `+` means union, and acceptance requires the whole string to satisfy at least one rule:
+
+- **Rule A:** the string consists of zero or more complete `abab` blocks.
+- **Rule B:** every run of `a`s has length at least two; any number of `b`s may occur before, after, or between these runs.
+
+The inner `aaa*` means two required `a`s followed by zero or more additional `a`s, so it permits `aa`, `aaa`, and longer runs. It does not mean `(aaa)*`. The outer star on `(aaa*+b)*` allows successive choices of different blocks: `bbaa` is `b / b / aa`, and `aaab` is `aaa / b`.
+
+The outermost union does **not** allow switching from a completed Rule A string to an unrelated Rule B string midway. For example, `ababaa` belongs to neither language, even though `abab` satisfies Rule A and `aa` satisfies Rule B.
+
+**The first three diagrams are incomplete construction sketches. Only stage 4 is the complete DFA.** Grouping boxes organize state meanings; they are not separate machines.
+
+#### Step 1 — Start and Consider the First Letter
+
+Before reading anything, both rules are possible and both permit the empty string. Create **accepting start state $q_0$**.
+
+Now consider the first symbol:
+
+| From | Read | Go to | What the new state remembers | Accepting? |
+|---|---|---|---|---|
+| $q_0$ | `a` | $q_1$ | One initial `a`; either rule could still work, but neither is complete | No |
+| $q_0$ | `b` | $q_2$ | Only Rule B remains possible; the string is valid and ends in `b` | Yes |
+
+Reading `a` does not force an immediate choice between the two rules: another `a` could satisfy Rule B, while `bab` could finish Rule A. The state remembers both possibilities until the input rules one out.
+
+![Stage 1, incomplete: accepting start q0 goes to nonaccepting q1 on a and accepting q2 on b.](../assets/dfa-union-practice-6c-step-1.svg)
+
+#### Step 2 — Finish the States for Valid a-Runs
+
+Work from $q_2$, where only Rule B remains possible:
+
+- Reading another `b` leaves exactly the same situation. Reuse $q_2$ with a `b` loop.
+- Reading `a` starts a run containing only one `a`. Create nonaccepting $q_3$: another `a` is required before this run can be valid.
+- Reading `a` from $q_3$ completes a run of two. Create accepting $q_4$: the current run has at least two `a`s.
+- Further `a`s do not change that fact. Reuse $q_4$ with an `a` loop rather than making states for three, four, or five `a`s.
+- Reading `b` from $q_4$ ends a valid run. Reuse $q_2$, the valid Rule B situation ending in `b`.
+
+Also connect $q_1$ on `a` to $q_4$: the prefix is now `aa`, Rule A is impossible, and the valid run already has two `a`s.
+
+| From | Read | Go to | Reason |
+|---|---|---|---|
+| $q_2$ | `b` | $q_2$ | Another complete `b` block |
+| $q_2$ | `a` | $q_3$ | One `a` in a new run |
+| $q_3$ | `a` | $q_4$ | The run now has two `a`s |
+| $q_4$ | `a` | $q_4$ | The run still has at least two `a`s |
+| $q_4$ | `b` | $q_2$ | A valid run ends, followed by `b` |
+| $q_1$ | `a` | $q_4$ | The initial prefix `aa` reaches the same valid-run situation |
+
+**Why $q_3$ is needed:** nonaccepting does not mean dead. Stopping after `ba` rejects, but adding `a` gives accepted `baa`. The state must preserve that possible completion rather than reject irrecoverably.
+
+![Stage 2, incomplete: add q3 for one pending a and accepting q4 for at least two a symbols; q2 loops on b, q4 loops on a, and q4 returns to q2 on b.](../assets/dfa-union-practice-6c-step-2.svg)
+
+#### Step 3 — Finish the Repeating-abab States
+
+The missing `b` arrow from $q_1$ gives prefix `ab`. Rule B has now failed because the `b` closed a single-`a` run. Only Rule A can still work, so remember progress through the `abab` block:
+
+| Input read so far | New state | What is still needed | Accepting? |
+|---|---|---|---|
+| `ab` | $q_5$ | `ab` to finish this block | No |
+| `aba` | $q_6$ | `b` to finish this block | No |
+| `abab` | $q_7$ | Nothing; a complete block has finished | Yes |
+| `ababa` | $q_8$ | `bab` to finish another block | No |
+
+After a complete block at $q_7$, read `a` to begin another block at $q_8$. From $q_8$, reading `b` reaches the same situation as $q_5$: two symbols of the current block have been read, and `ab` is still needed. Reuse $q_5$.
+
+| From | Read | Go to |
+|---|---|---|
+| $q_1$ | `b` | $q_5$ |
+| $q_5$ | `a` | $q_6$ |
+| $q_6$ | `b` | $q_7$ |
+| $q_7$ | `a` | $q_8$ |
+| $q_8$ | `b` | $q_5$ |
+
+**Why not return to $q_0$ after `abab`?** At $q_0$, both rules are possible. At $q_7$, Rule B has already failed. Returning to $q_0$ would incorrectly allow the continuation `aa`, accepting invalid `ababaa`.
+
+Similarly, **$q_8$ is not $q_1$**. From $q_1$, another `a` gives accepted `aa`. From $q_8$, another `a` gives invalid `ababaa`. Their progress can look similar, but their allowed futures differ.
+
+![Stage 3, incomplete: add the abab-only path q1 to q5 on b, q5 to q6 on a, q6 to accepting q7 on b, then q7 to q8 on a and q8 to q5 on b.](../assets/dfa-union-practice-6c-step-3.svg)
+
+#### Step 4 — Add the Trap and Complete Every Transition
+
+Create nonaccepting $q_d$ for prefixes from which neither rule can ever accept. Add the remaining invalid-symbol arrows:
+
+| From | Read | Go to | Why neither rule can recover |
+|---|---|---|---|
+| $q_3$ | `b` | $q_d$ | Closes an invalid single-`a` run after Rule A has already failed |
+| $q_5$ | `b` | $q_d$ | Rule A needed `a`; Rule B has already failed |
+| $q_6$ | `a` | $q_d$ | Rule A needed `b`; Rule B has already failed |
+| $q_7$ | `b` | $q_d$ | A new `abab` block must begin with `a` |
+| $q_8$ | `a` | $q_d$ | The next letter of the block must be `b` |
+
+Both `a` and `b` loop at $q_d$, since no continuation can undo a failed prefix. Every state now has exactly one transition for each input symbol.
+
+**Accepting states:** $q_0$ (empty string), $q_2$ (valid Rule B string ending in `b`), $q_4$ (valid Rule B string ending in an `a`-run), and $q_7$ (complete `abab` blocks).
+
+![Stage 4, complete DFA: all ten states and all twenty symbol transitions, with accepting q0, q2, q4, q7 and red dashed invalid-symbol arrows to the rejecting trap qd.](../assets/dfa-union-practice-6c-step-4.svg)
+
+**Complete transition table.**
+
+| State | On `a` → | On `b` → | Accepting? |
+|---|---|---|---|
+| $q_0$ — start | $q_1$ | $q_2$ | Yes |
+| $q_1$ | $q_4$ | $q_5$ | No |
+| $q_2$ | $q_3$ | $q_2$ | Yes |
+| $q_3$ | $q_4$ | $q_d$ | No |
+| $q_4$ | $q_4$ | $q_2$ | Yes |
+| $q_5$ | $q_6$ | $q_d$ | No |
+| $q_6$ | $q_d$ | $q_7$ | No |
+| $q_7$ | $q_8$ | $q_d$ | Yes |
+| $q_8$ | $q_d$ | $q_5$ | No |
+| $q_d$ | $q_d$ | $q_d$ | No |
+
+**Membership checks.**
+
+| String | Result | Reason |
+|---|---|---|
+| $\lambda$ | Accept | Zero blocks are permitted |
+| `ba` | Reject | The current `a`-run has only one `a` |
+| `baa` | Accept | Blocks `b / aa` satisfy Rule B |
+| `bab` | Reject | The middle single-`a` run was closed |
+| `bbaa` | Accept | Blocks `b / b / aa` satisfy Rule B |
+| `aaab` | Accept | Blocks `aaa / b` satisfy Rule B |
+| `abab` | Accept | One complete Rule A block |
+| `ababaa` | Reject | Neither complete-string rule holds |
+
+**General method:** for each state, ask what it remembers, what changes on `a`, what changes on `b`, whether an existing state has the same future obligations, and whether stopping here should accept. A state is a remembered situation, not merely the last letter read.
+
+</details>
+
+</details>
+
+---
+
 ## 6. Regular Grammars — Section 3.3
 
 An automaton tracks which situation remains; a regular grammar tracks which variable remains to finish generating a string. These are two views of the same finite-state structure.
