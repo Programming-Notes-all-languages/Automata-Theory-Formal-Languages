@@ -126,6 +126,72 @@ For an NFA with $n$ states, there are at most $2^n$ subset-states. Only reachabl
 
 ---
 
+### 2.3 Midterm Practice — Convert an Epsilon-NFA to a DFA
+
+**Source:** *Practice Exam 1*, question 4 (5 points), supplied practice material rather than a textbook exercise. The diagram uses $\varepsilon$ for an empty-input move; this is the same role as $\lambda$ in the notes above.
+
+<details>
+<summary>Question 4 — Convert the supplied NFA to an equivalent DFA</summary>
+
+The NFA starts at state 1, and only state 5 is accepting. The following table transcribes every arrow in the supplied diagram; an empty set means there is no direct transition with that label.
+
+| NFA state | On `a` | On `b` | On $\varepsilon$ |
+|---|---|---|---|
+| 1 — start | $\lbrace 1,2 \rbrace$ | $\lbrace 1 \rbrace$ | $\lbrace 2 \rbrace$ |
+| 2 | $\varnothing$ | $\lbrace 3 \rbrace$ | $\lbrace 1,3 \rbrace$ |
+| 3 | $\varnothing$ | $\lbrace 4 \rbrace$ | $\varnothing$ |
+| 4 | $\lbrace 5 \rbrace$ | $\lbrace 3 \rbrace$ | $\varnothing$ |
+| 5 — accepting | $\varnothing$ | $\varnothing$ | $\varnothing$ |
+
+<details>
+<summary>Solution</summary>
+
+**One DFA state represents all NFA states currently possible.** For each input symbol, follow that symbol from every state in the current subset, combine all destinations, and then take their epsilon-closure. Closure includes the starting states themselves and everything reachable through zero or more empty-input moves.
+
+**1. Find the initial subset.** Starting at 1, an epsilon-move reaches 2; from 2, epsilon-moves reach 1 and 3. There are no further new states. Thus the DFA starts at $A = \lbrace 1,2,3 \rbrace$, not just at a state representing 1. The epsilon-cycle between 1 and 2 does not cause an infinite calculation: record each visited state once.
+
+**2. Process A on both symbols.**
+
+- On `a`, NFA state 1 contributes 1 and 2; states 2 and 3 contribute nothing. Epsilon-closure adds 3, giving A again.
+- On `b`, states 1, 2, and 3 contribute 1, 3, and 4 respectively. Epsilon-closure also adds 2. Name this new subset $B = \lbrace 1,2,3,4 \rbrace$.
+
+**3. Process B on both symbols.** Consider all four states, not just the newly added 4.
+
+- On `a`, state 1 contributes 1 and 2, and state 4 contributes 5. Epsilon-closure adds 3. Name the new subset $C = \lbrace 1,2,3,5 \rbrace$.
+- On `b`, the combined direct destinations are 1, 3, and 4. Epsilon-closure adds 2, giving B again.
+
+**4. Process C on both symbols.** NFA state 5 has no outgoing transitions, so it contributes nothing to either move. The remaining states give A on `a` and B on `b`. No new subsets remain to process.
+
+The complete move-and-closure calculation is:
+
+| Current DFA state | Input | Combined direct destinations | After epsilon-closure | Next DFA state |
+|---|---|---|---|---|
+| A | `a` | $\lbrace 1,2 \rbrace$ | $\lbrace 1,2,3 \rbrace$ | A |
+| A | `b` | $\lbrace 1,3,4 \rbrace$ | $\lbrace 1,2,3,4 \rbrace$ | B |
+| B | `a` | $\lbrace 1,2,5 \rbrace$ | $\lbrace 1,2,3,5 \rbrace$ | C |
+| B | `b` | $\lbrace 1,3,4 \rbrace$ | $\lbrace 1,2,3,4 \rbrace$ | B |
+| C | `a` | $\lbrace 1,2 \rbrace$ | $\lbrace 1,2,3 \rbrace$ | A |
+| C | `b` | $\lbrace 1,3,4 \rbrace$ | $\lbrace 1,2,3,4 \rbrace$ | B |
+
+**5. Mark accepting subsets and finish the DFA.** A subset is accepting if it contains at least one accepting NFA state. Only C contains 5, so only C gets a double circle.
+
+| DFA state | NFA subset represented | On `a` | On `b` | Accepting? |
+|---|---|---|---|---|
+| A — start | $\lbrace 1,2,3 \rbrace$ | A | B | No |
+| B | $\lbrace 1,2,3,4 \rbrace$ | C | B | No |
+| C | $\lbrace 1,2,3,5 \rbrace$ | A | B | Yes |
+
+To draw the equivalent DFA, put the start arrow at A, double-circle C, and draw exactly the six transitions in the table. There are no epsilon-transitions in the DFA. No empty-subset trap is needed here: state 1 remains possible on either input, so no reachable subset is empty.
+
+**Why it is equivalent:** initially the subset contains exactly the states reachable before input. Each symbol update preserves the entire set of possible NFA endpoints, including subsequent empty-input moves. Testing whether that set contains 5 therefore gives exactly the NFA's acceptance decision for every input.
+
+**Remember:** read one symbol, collect all destinations, take epsilon-closure, then reuse or name the resulting subset. Stop when every discovered subset has a transition on every alphabet symbol.
+
+</details>
+</details>
+
+---
+
 ## 3. Reducing the Number of States — Section 2.4
 
 Two states can look different but remember exactly the same information for future acceptance. Minimization removes states that cannot occur and merges states that no possible continuation can tell apart.
