@@ -192,6 +192,85 @@ To draw the equivalent DFA, put the start arrow at A, double-circle C, and draw 
 
 ---
 
+### 2.4 Additional Practice — Epsilon Moves and an Empty-Set Trap
+
+<details>
+<summary>Example — Convert a new epsilon-NFA to a DFA</summary>
+
+**Source:** original practice modeled on question 4 of the supplied *Practice Exam 1*. This is a different automaton, not the diagram from that exam.
+
+**Question.** Convert the following NFA over $\Sigma=\lbrace a,b \rbrace$ to an equivalent DFA. Identify each subset, the start and accepting states, and the complete transition table. The NFA starts at $q_0$; only $q_3$ is accepting.
+
+![Practice epsilon-NFA: q0 is the start and q3 is accepting. Free moves go from q0 to q1 and from q2 to q1.](../assets/epsilon-nfa-additional-practice.png)
+
+The source transitions are listed below. A missing arrow means no transition, not an implied self-loop.
+
+| NFA state | On `a` | On `b` | On $\varepsilon$ |
+|---|---|---|---|
+| $q_0$ — start | $\lbrace q_0 \rbrace$ | $\varnothing$ | $\lbrace q_1 \rbrace$ |
+| $q_1$ | $\varnothing$ | $\lbrace q_2 \rbrace$ | $\varnothing$ |
+| $q_2$ | $\lbrace q_3 \rbrace$ | $\varnothing$ | $\lbrace q_1 \rbrace$ |
+| $q_3$ — accepting | $\lbrace q_1 \rbrace$ | $\lbrace q_3 \rbrace$ | $\varnothing$ |
+
+<details>
+<summary>Solution</summary>
+
+**The routine:** follow the actual input symbol from every member of the current subset, combine those destinations, then add all states reachable from those destinations by free epsilon-moves. Follow entire epsilon-chains and keep each state only once. Each subset describes possible states after consuming the same input, not all states visited along the way.
+
+**1. Start before reading input.** Keep $q_0$ and follow its free move to $q_1$. No epsilon-arrow leaves $q_1$. Name the initial subset $A=\lbrace q_0,q_1 \rbrace$.
+
+**2. Process A.**
+
+- On `a`, $q_0$ reaches $q_0$; $q_1$ has no `a` arrow. The direct set is therefore just $\lbrace q_0 \rbrace$. From this destination, the free move adds $q_1$, giving A again.
+- On `b`, $q_0$ contributes nothing and $q_1$ reaches $q_2$. Keep $q_2$ and add $q_1$ through its free move. Name the result $B=\lbrace q_1,q_2 \rbrace$.
+
+**3. Process B.**
+
+- On `a`, $q_1$ contributes nothing and $q_2$ reaches $q_3$. There are no epsilon-arrows from $q_3$, so name the result $C=\lbrace q_3 \rbrace$.
+- On `b`, $q_1$ reaches $q_2$ and $q_2$ contributes nothing. Epsilon-closure adds $q_1$, giving B again.
+
+**Why B on `a` does not keep q1:** the free arrow leaves $q_2$, not the destination $q_3$. Taking it first reaches $q_1$ without consuming `a`, but $q_1$ cannot then read `a`. Reading `a` first reaches $q_3$, where there is no free arrow. The curved arrow from $q_3$ to $q_1$ is labeled `a`, so it requires another input symbol. By contrast, A on `a` lands at $q_0$, whose epsilon-arrow really is available after the symbol has been consumed.
+
+**4. Process C.** On `a`, $q_3$ reaches $q_1$, with no further free moves; name this $D=\lbrace q_1 \rbrace$. On `b`, $q_3$ loops to itself, giving C.
+
+**5. Process D.** On `a`, $q_1$ has no transition, so no NFA path survives; name the empty subset $E=\varnothing$. On `b`, $q_1$ reaches $q_2$ and epsilon-closure adds $q_1$, giving B.
+
+**6. Process E.** With no NFA states left, neither symbol has a destination and no free move can begin. Both inputs return to E. This is a reachable rejecting trap and must be included to make the DFA complete.
+
+Every direct move and its closure are:
+
+| Current DFA state | Input | Combined direct destinations | After epsilon-closure | Next DFA state |
+|---|---|---|---|---|
+| A | `a` | $\lbrace q_0 \rbrace$ | $\lbrace q_0,q_1 \rbrace$ | A |
+| A | `b` | $\lbrace q_2 \rbrace$ | $\lbrace q_1,q_2 \rbrace$ | B |
+| B | `a` | $\lbrace q_3 \rbrace$ | $\lbrace q_3 \rbrace$ | C |
+| B | `b` | $\lbrace q_2 \rbrace$ | $\lbrace q_1,q_2 \rbrace$ | B |
+| C | `a` | $\lbrace q_1 \rbrace$ | $\lbrace q_1 \rbrace$ | D |
+| C | `b` | $\lbrace q_3 \rbrace$ | $\lbrace q_3 \rbrace$ | C |
+| D | `a` | $\varnothing$ | $\varnothing$ | E |
+| D | `b` | $\lbrace q_2 \rbrace$ | $\lbrace q_1,q_2 \rbrace$ | B |
+| E | `a` | $\varnothing$ | $\varnothing$ | E |
+| E | `b` | $\varnothing$ | $\varnothing$ | E |
+
+**7. Mark accepting states.** A subset accepts if it contains the NFA's accepting state $q_3$. Only C does.
+
+| DFA state | NFA subset represented | On `a` | On `b` | Accepting? |
+|---|---|---|---|---|
+| A — start | $\lbrace q_0,q_1 \rbrace$ | A | B | No |
+| B | $\lbrace q_1,q_2 \rbrace$ | C | B | No |
+| C | $\lbrace q_3 \rbrace$ | D | C | Yes |
+| D | $\lbrace q_1 \rbrace$ | E | B | No |
+| E | $\varnothing$ | E | E | No |
+
+The final DFA has start state A, accepting-state set $\lbrace C \rbrace$, and exactly the ten symbol transitions above. To draw it, double-circle C and give E a self-loop labeled `a, b`. There are no epsilon-arrows in the DFA.
+
+**Why it is equivalent:** the initial subset is exactly the NFA's possible-state set before input. Each symbol move followed by closure preserves this statement for the next input prefix. Containing $q_3$ therefore matches the NFA's acceptance decision for every string. An independent NFA simulation also agreed with the constructed DFA on all 2,047 words through length 10; those finite checks supplement, rather than replace, the invariant argument.
+
+</details>
+</details>
+
+---
+
 ## 3. Reducing the Number of States — Section 2.4
 
 Two states can look different but remember exactly the same information for future acceptance. Minimization removes states that cannot occur and merges states that no possible continuation can tell apart.
