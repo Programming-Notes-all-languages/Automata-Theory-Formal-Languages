@@ -853,13 +853,13 @@ Both `a` and `b` loop at $q_d$, since no continuation can undo a failed prefix. 
 **Source:** the binary count-product language supplied in tutoring. This walkthrough records the state-elimination steps and how to read the resulting graph, rather than introducing a formula to memorize.
 
 $$
-L=\lbrace w\in\lbrace 0,1 \rbrace^{\ast} : \#_0(w)\cdot\#_1(w)\equiv 1\pmod{2} \rbrace.
+L=\lbrace w\in\lbrace 0,1 \rbrace^{\ast} : n_0(w)\cdot n_1(w)\equiv 1\pmod{2} \rbrace.
 $$
 
 <details>
 <summary>Example — Construct a regex for the odd count-product language</summary>
 
-**Question.** Find a regular expression for the language above. Here the two counts are multiplied. A product is odd exactly when both factors are odd, so require an odd number of zeros and an odd number of ones, in any order.
+**Question.** Find a regular expression for the language above. Here $n_0(w)$ and $n_1(w)$ denote the counts written as `#0(w)` and `#1(w)` in the supplied prompt. The two counts are multiplied. A product is odd exactly when both factors are odd, so require an odd number of zeros and an odd number of ones, in any order.
 
 <details>
 <summary>Solution — Eliminate states, then describe every accepting journey</summary>
@@ -924,7 +924,7 @@ For example, the loop at $q_{00}$ is $00+11$, not $0011$: these are alternative 
 | Direct loop | Take the loop at $q_{11}$ | $A$ |
 | Visit the other state | Cross to $q_{00}$, loop there zero or more times, cross back | $BA^{\ast}B$ |
 
-The two $B$s in the second choice are essential: the first leaves $q_{11}$, the second returns. Without the final crossing, the path ends at the nonaccepting state $q_{00}$.
+The two occurrences of $B$ in the second choice are essential: the first leaves $q_{11}$, the second returns. Without the final crossing, the path ends at the nonaccepting state $q_{00}$.
 
 **8. Choose and repeat.** Use $+$ between alternative trips. Put a star around the entire choice because, after each return, either kind of trip can happen again. Zero trips means stop as soon as the beginning first reaches $q_{11}$.
 
