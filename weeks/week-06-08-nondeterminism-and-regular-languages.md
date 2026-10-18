@@ -848,6 +848,131 @@ Both `a` and `b` loop at $q_d$, since no continuation can undo a failed prefix. 
 
 ---
 
+### 5.8 Guided Practice — Odd Counts: From a DFA to a Regular Expression
+
+**Source:** the binary count-product language supplied in tutoring. This walkthrough records the state-elimination steps and how to read the resulting graph, rather than introducing a formula to memorize.
+
+$$
+L=\lbrace w\in\lbrace 0,1 \rbrace^{\ast} : \#_0(w)\cdot\#_1(w)\equiv 1\pmod{2} \rbrace.
+$$
+
+<details>
+<summary>Example — Construct a regex for the odd count-product language</summary>
+
+**Question.** Find a regular expression for the language above. Here the two counts are multiplied. A product is odd exactly when both factors are odd, so require an odd number of zeros and an odd number of ones, in any order.
+
+<details>
+<summary>Solution — Eliminate states, then describe every accepting journey</summary>
+
+**1. Begin with the parity DFA.** In $q_{ij}$, the first index records the zero count modulo 2, and the second records the one count modulo 2. Use this layout:
+
+| Position | Left | Right |
+|---|---|---|
+| Top | $q_{00}$ — start | $q_{01}$ |
+| Bottom | $q_{10}$ | $q_{11}$ — accepting |
+
+Reading `0` moves vertically; reading `1` moves horizontally. Both directions are allowed on every connection.
+
+| State | Meaning | On `0` | On `1` |
+|---|---|---|---|
+| $q_{00}$ — start | Even zeros, even ones | $q_{10}$ | $q_{01}$ |
+| $q_{01}$ | Even zeros, odd ones | $q_{11}$ | $q_{00}$ |
+| $q_{10}$ | Odd zeros, even ones | $q_{00}$ | $q_{11}$ |
+| $q_{11}$ — accepting | Odd zeros, odd ones | $q_{01}$ | $q_{10}$ |
+
+**2. What does eliminating a state mean?** Remove it, but preserve every route that went through it by adding replacement arrows. The replacement labels may be whole strings or regexes: the resulting graph is a generalized transition graph, not an ordinary DFA. This is not DFA minimization or merging equivalent states.
+
+For a removed state without a loop, read the incoming label and then the outgoing label. Concatenate them. If a replacement arrow already exists, keep both alternatives using $+$.
+
+**3. Remove the bottom-left state, q10.** Pair each incoming arrow with each outgoing arrow:
+
+| Trip through the removed state | Symbols read | Replacement |
+|---|---|---|
+| $q_{00}\to q_{10}\to q_{00}$ | `0`, then `0` | Loop at $q_{00}$ labeled $00$ |
+| $q_{00}\to q_{10}\to q_{11}$ | `0`, then `1` | $q_{00}$ to $q_{11}$ labeled $01$ |
+| $q_{11}\to q_{10}\to q_{00}$ | `1`, then `0` | $q_{11}$ to $q_{00}$ labeled $10$ |
+| $q_{11}\to q_{10}\to q_{11}$ | `1`, then `1` | Loop at $q_{11}$ labeled $11$ |
+
+After preserving those four trips, remove $q_{10}$ and its old arrows. Keep all four original arrows between $q_{01}$ and the two surviving states.
+
+**4. Remove the top-right state, q01.** It also has no loop. Again, preserve all four trips and combine new labels with existing alternatives:
+
+| Trip through the removed state | New contribution | Existing label | Combined label |
+|---|---|---|---|
+| $q_{00}\to q_{01}\to q_{00}$ | $11$ | $00$ | $00+11$ |
+| $q_{00}\to q_{01}\to q_{11}$ | $10$ | $01$ | $01+10$ |
+| $q_{11}\to q_{01}\to q_{00}$ | $01$ | $10$ | $10+01$ |
+| $q_{11}\to q_{01}\to q_{11}$ | $00$ | $11$ | $11+00$ |
+
+For example, the loop at $q_{00}$ is $00+11$, not $0011$: these are alternative trips, not two required consecutive trips.
+
+**5. Pause at the two-state graph.** Union order does not matter, so both loops have the same label, and both crossing arrows have the same label. Abbreviate the loop label as $A$ and the crossing label as $B$; their definitions are displayed below. These uppercase letters are regex abbreviations, not new input symbols.
+
+| From | To | Abbreviated label |
+|---|---|---|
+| $q_{00}$ | $q_{00}$ | $A$ |
+| $q_{00}$ | $q_{11}$ | $B$ |
+| $q_{11}$ | $q_{00}$ | $B$ |
+| $q_{11}$ | $q_{11}$ | $A$ |
+
+**6. Build the beginning first.** Start at $q_{00}$. Take its loop zero or more times, then cross to $q_{11}$. That reads $A^{\ast}B$. The first star permits any finite number of loops, including none; it does not mean an infinite input string. This beginning is required because the start state is not accepting.
+
+**7. Now stand at q11 and describe one return trip.** Put the beginning aside temporarily. There are exactly two kinds of trips to consider:
+
+| Choice | What happens | Label |
+|---|---|---|
+| Direct loop | Take the loop at $q_{11}$ | $A$ |
+| Visit the other state | Cross to $q_{00}$, loop there zero or more times, cross back | $BA^{\ast}B$ |
+
+The two $B$s in the second choice are essential: the first leaves $q_{11}$, the second returns. Without the final crossing, the path ends at the nonaccepting state $q_{00}$.
+
+**8. Choose and repeat.** Use $+$ between alternative trips. Put a star around the entire choice because, after each return, either kind of trip can happen again. Zero trips means stop as soon as the beginning first reaches $q_{11}$.
+
+**The learner's version is valid too:** allowing any number of direct loops as one choice gives $(A^{\ast}+BA^{\ast}B)^{\ast}$. The outer star is crucial: it allows mixing and repeating direct loops and visits. Its inner star on $A$ is redundant because the outer star already permits repeated choices of $A$.
+
+**9. Attach the pieces using concatenation, not plus.** First get to $q_{11}$, then make zero or more return trips. Writing a plus between those pieces would mean choosing return trips without first reaching their starting state. There is no need for a separate stopping alternative: zero repetitions of the final star already allows stopping immediately.
+
+**What does the complete regex represent?** All strings read along all finite paths from $q_{00}$ to $q_{11}$, not just one possible route. Every accepting path has a first crossing to $q_{11}$. After that, split it at each return to $q_{11}$: each piece is a direct loop or a visit to $q_{00}$ and back. Conversely, every concatenation described this way follows valid graph edges and ends accepting. Together with the elimination steps, this proves equivalence for all strings.
+
+**Not a universal template:** this particular shorthand works because the two loops share label $A$ and both crossing directions share label $B$. In another graph the labels may differ. Reconstruct the trips from the actual arrows rather than copying letters from this example.
+
+**Remember:** get there, then repeat trips that bring you back. Expand the abbreviations only after that short expression makes sense.
+
+</details>
+</details>
+
+**Arrow-label abbreviations:**
+
+$$
+A=00+11,\qquad B=01+10.
+$$
+
+**One return trip at the accepting state: direct loop OR visit the other state and return:**
+
+$$
+A+BA^{\ast}B.
+$$
+
+**Complete journey, using the learner's valid version:**
+
+$$
+R=A^{\ast}B\left(A^{\ast}+BA^{\ast}B\right)^{\ast}.
+$$
+
+**Equivalent compact version:**
+
+$$
+R=\underbrace{A^{\ast}B}_{\text{reach the accepting state}}\underbrace{\left(A+BA^{\ast}B\right)^{\ast}}_{\text{repeat trips returning there}}.
+$$
+
+**Final regex after substituting the arrow labels:**
+
+$$
+\boxed{R=(00+11)^{\ast}(01+10)\left((00+11)+(01+10)(00+11)^{\ast}(01+10)\right)^{\ast}}.
+$$
+
+---
+
 ## 6. Regular Grammars — Section 3.3
 
 An automaton tracks which situation remains; a regular grammar tracks which variable remains to finish generating a string. These are two views of the same finite-state structure.
