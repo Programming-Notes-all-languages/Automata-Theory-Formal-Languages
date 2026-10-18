@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="320" viewBox="0 0 1000 320" role="img" aria-labelledby="title desc">
+  <title id="title">Practice Exam 1, question 6: minimized DFA</title>
+  <desc id="desc">Start at nonaccepting A, representing original states a and b. A loops on 0 and goes to accepting B on 1. B represents c, d, and e, loops on 0, and goes to rejecting trap C on 1. C represents f and loops on both 0 and 1.</desc>
+  <style>
+    svg { color:#172033; }
+    .background { fill:#fff; }
+    text { font-family:system-ui,sans-serif; fill:currentColor; }
+    .edge { fill:none; stroke:currentColor; stroke-width:2.6; }
+    .state { fill:#eaf2ff; stroke:currentColor; stroke-width:2.6; }
+    .accepting { fill:#e8f6eb; }
+    .inner { fill:none; }
+    @media (prefers-color-scheme:dark) {
+      svg { color:#edf2f7; }
+      .background { fill:#0d1117; }
+      .state { fill:#17263b; }
+      .accepting { fill:#163327; }
+      .inner { fill:none; }
+    }
+  </style>
+  <rect class="background" width="1000" height="320" rx="10"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <text x="24" y="31" font-size="24" font-weight="600">Practice Exam 1 — Question 6: minimized DFA</text>
+  <path class="edge" data-start="A" d="M 55 190 L 158 190" marker-end="url(#arrow)"/>
+  <text x="67" y="170" font-size="18">start</text>
+  <path class="edge" data-from="A" data-symbols="1" data-to="B" d="M 242 190 L 458 190" marker-end="url(#arrow)"/>
+  <text data-edge="A-B" x="350" y="173" font-size="25" text-anchor="middle">1</text>
+  <path class="edge" data-from="B" data-symbols="1" data-to="C" d="M 542 190 L 758 190" marker-end="url(#arrow)"/>
+  <text data-edge="B-C" x="650" y="173" font-size="25" text-anchor="middle">1</text>
+  <path class="edge" data-from="A" data-symbols="0" data-to="A" d="M 176 155 C 110 65 290 65 224 155" marker-end="url(#arrow)"/>
+  <text data-edge="A-A" x="200" y="74" font-size="25" text-anchor="middle">0</text>
+  <path class="edge" data-from="B" data-symbols="0" data-to="B" d="M 476 155 C 410 65 590 65 524 155" marker-end="url(#arrow)"/>
+  <text data-edge="B-B" x="500" y="74" font-size="25" text-anchor="middle">0</text>
+  <path class="edge" data-from="C" data-symbols="0 1" data-to="C" d="M 776 155 C 710 65 890 65 824 155" marker-end="url(#arrow)"/>
+  <text data-edge="C-C" x="800" y="74" font-size="25" text-anchor="middle">0, 1</text>
+  <circle class="state" data-state="A" cx="200" cy="190" r="42"/>
+  <text x="200" y="200" font-size="29" text-anchor="middle">A</text>
+  <circle class="state accepting" data-state="B" data-accepting="true" cx="500" cy="190" r="42"/>
+  <circle class="state inner" cx="500" cy="190" r="34"/>
+  <text x="500" y="200" font-size="29" text-anchor="middle">B</text>
+  <circle class="state" data-state="C" cx="800" cy="190" r="42"/>
+  <text x="800" y="200" font-size="29" text-anchor="middle">C</text>
+  <text x="200" y="274" font-size="20" text-anchor="middle">A: original a, b</text>
+  <text x="500" y="274" font-size="20" text-anchor="middle">B: original c, d, e</text>
+  <text x="800" y="274" font-size="20" text-anchor="middle">C: original f</text>
+</svg>

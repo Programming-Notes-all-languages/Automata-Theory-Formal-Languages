@@ -365,6 +365,56 @@ Minimality depends on both conditions: every remaining state is reachable, and e
 
 ---
 
+### 3.5 Midterm Practice — Minimize the Six-State DFA
+
+<details>
+<summary>Question 6 — Minimize the supplied DFA</summary>
+
+**Source:** *Practice Exam 1*, question 6 (5 points), supplied practice material rather than a textbook exercise or submitted assignment.
+
+**Question.** Minimize the following DFA over $\Sigma=\lbrace 0,1 \rbrace$. The start state is $a$, and the accepting states are $c$, $d$, and $e$. This table transcribes all arrows from the original diagram.
+
+| Original state | On `0` | On `1` | Accepting? |
+|---|---|---|---|
+| $a$ — start | $b$ | $c$ | No |
+| $b$ | $a$ | $d$ | No |
+| $c$ | $e$ | $f$ | Yes |
+| $d$ | $e$ | $f$ | Yes |
+| $e$ | $e$ | $f$ | Yes |
+| $f$ | $f$ | $f$ | No |
+
+<details>
+<summary>Solution</summary>
+
+**1. Check reachability.** All six states are reachable from $a$: the empty input stays at $a$; `0`, `1`, `01`, `10`, and `11` reach $b$, $c$, $d$, $e$, and $f$ respectively. No state is removed as unreachable.
+
+**2. Separate accepting from nonaccepting states.** Begin with $\lbrace c,d,e \rbrace$ and $\lbrace a,b,f \rbrace$. An accepting state cannot merge with a nonaccepting state because stopping immediately distinguishes them.
+
+**3. Refine the groups by their destinations.**
+
+- States $c$, $d$, and $e$ have identical transitions: `0` goes to $e$, and `1` goes to $f$. They remain one accepting group.
+- States $a$ and $b$ both stay in their own group on `0` and enter the accepting group on `1`. They remain equivalent even though their arrows name different original destinations.
+- State $f$ must split from $a$ and $b$: reading `1` accepts from either $a$ or $b$, but rejects from $f$. It is a rejecting trap.
+
+Name the resulting states $A=\lbrace a,b \rbrace$, $B=\lbrace c,d,e \rbrace$, and $C=\lbrace f \rbrace$. Redirect each original arrow to its destination's group.
+
+| Minimized state | Original states represented | On `0` | On `1` | Accepting? |
+|---|---|---|---|---|
+| A — start | $\lbrace a,b \rbrace$ | A | B | No |
+| B | $\lbrace c,d,e \rbrace$ | B | C | Yes |
+| C — trap | $\lbrace f \rbrace$ | C | C | No |
+
+![Minimized question 6 DFA: start A loops on 0 and goes to accepting B on 1; B loops on 0 and goes to rejecting trap C on 1; C loops on 0 and 1.](../assets/midterm-q6-minimized-dfa.svg)
+
+**4. Verify that three states are necessary.** All three are reachable: the empty input reaches A, `1` reaches B, and `11` reaches C. The empty continuation distinguishes accepting B from A or C. The continuation `1` distinguishes A from C. Thus none of the three states can be merged further.
+
+**Final answer:** start at A, double-circle only B, and use exactly the six symbol transitions in the table. A and B each loop on `0`; C loops on both symbols. The remaining arrows are A to B on `1` and B to C on `1`.
+
+</details>
+</details>
+
+---
+
 ## 4. Regular Expressions — Section 3.1
 
 A regular expression describes a language by combining choices, sequences, and repetitions. The expression is notation; the language it denotes is a set of strings.
